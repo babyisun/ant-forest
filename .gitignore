@@ -1,14 +1,14 @@
 # dependencies
 /node_modules
+.docz
 
 # testing
 *.zip
 *.gz
 
 # production
-/build
-/output
-/webroot
+lib
+es
 
 
 # misc

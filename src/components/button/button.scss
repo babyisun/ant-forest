@@ -1,0 +1,45 @@
+.button {
+  cursor: pointer;
+  margin: 3px 5px;
+  border: none;
+  border-radius: 3px;
+  background: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+
+  &.small {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  &.normal {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  &.big {
+    padding: 20px 30px;
+    font-size: 18px;
+  }
+
+  &.primary {
+    background: #1fb6ff;
+    color: #fff;
+  }
+  &.secondary {
+    background: #5352ed;
+    color: #fff;
+  }
+  &.cancel {
+    background: #ff4949;
+    color: #fff;
+  }
+  &.dark {
+    background: #273444;
+    color: #fff;
+  }
+  &.gray {
+    background: #8492a6;
+    color: #fff;
+  }
+}

@@ -1,75 +1,77 @@
 {
-    "name": "ant-forest",
-    "version": "1.0.0",
-    "description": "A component library growing on ant-design.",
-    "keywords": [
-      "react",
-      "ant",
-      "antd",
-      "ant-design",
-      "ant-forest"
-    ],
-    "license": "MIT",
-    "author": {
-      "name": "North",
-      "email": "babyisun@qq.com",
-      "url": "https://github.com/babyisun"
-    },
-    "homepage": "https://github.com/babyisun/ant-forest",
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/babyisun/ant-forest.git"
-    },
-    "bugs": "https://github.com/babyisun/ant-forest/issues",
-    "main": "lib/index.js",
-    "module": "es/index.js",
-    "files": [
-      "lib",
-      "es",
-      "src"
-    ],
-    "scripts": {
-      "build:js": "cross-env NODE_ENV=js rollup -c -o lib/index.js",
-      "build:es": "cross-env NODE_ENV=es rollup -c -o es/index.js",
-      "build": "yarn build:js && yarn build:js",
-      "dev": "yarn docz dev",
-      "doc": "yarn docz build",
-      "clean": "rimraf lib es"
-    },
-    "dependencies": {
-      "@babel/core": "^7.3.4",
-      "@babel/plugin-proposal-class-properties": "^7.3.4",
-      "@babel/plugin-transform-runtime": "^7.3.4",
-      "@babel/preset-env": "^7.3.4",
-      "@babel/preset-react": "^7.0.0",
-      "@babel/runtime": "^7.3.4",
-      "antd": "^3.15.0",
-      "babel-core": "^7.0.0-bridge",
-      "babel-eslint": "^10.0.1",
-      "babel-plugin-import": "^1.11.0",
-      "cross-env": "^5.2.0",
-      "docz": "^0.13.7",
-      "docz-plugin-css": "^0.11.0",
-      "docz-theme-default": "^0.13.7",
-      "husky": "^1.2.0",
-      "lint-staged": "^8.1.5",
-      "prettier": "^1.16.4",
-      "prop-types": "^15.7.2",
-      "react": "^16.8.4",
-      "rollup": "^1.6.0",
-      "rollup-plugin-babel": "^4.3.2",
-      "rollup-plugin-eslint": "^5.0.0",
-      "rollup-plugin-sass": "^1.1.0"
-    },
-    "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
-    },
-    "lint-staged": {
-      "src/**/*.{jsx,scss}": [
-        "prettier --write",
-        "git add"
-      ]
+  "name": "ant-forest",
+  "version": "1.0.0",
+  "description": "🌈 A component library growing on ant-design.",
+  "keywords": [
+    "react",
+    "ant",
+    "antd",
+    "ant-design",
+    "ant-forest"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "North",
+    "email": "babyisun@qq.com",
+    "url": "https://github.com/babyisun"
+  },
+  "homepage": "https://github.com/babyisun/ant-forest",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/babyisun/ant-forest.git"
+  },
+  "bugs": "https://github.com/babyisun/ant-forest/issues",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es",
+    "src"
+  ],
+  "scripts": {
+    "build:js": "cross-env NODE_ENV=js rollup -c -o lib/index.js",
+    "build:es": "cross-env NODE_ENV=es rollup -c -o es/index.js",
+    "build": "yarn build:js && yarn build:js",
+    "dev": "yarn docz dev",
+    "doc": "yarn docz build",
+    "clean": "rimraf lib es",
+    "see": "http-server doc -p 8010 -o"
+  },
+  "dependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.3.4",
+    "antd": "^3.15.0",
+    "babel-core": "^7.0.0-bridge",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-import": "^1.11.0",
+    "cross-env": "^5.2.0",
+    "docz": "^0.13.7",
+    "docz-plugin-css": "^0.11.0",
+    "docz-theme-default": "^0.13.7",
+    "husky": "^1.2.0",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.4",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.6.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-sass": "^1.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{jsx,scss}": [
+      "prettier --write",
+      "git add"
+    ]
   }
+}
