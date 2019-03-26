@@ -12,7 +12,7 @@
 安装项目的全部依赖
 
 ```bash
-`npm install ant-forest` or `yarn ant-forest`
+`npm install ant-forest --save` or `yarn add ant-forest --save`
 ```
 
 ## 🔖 使用
