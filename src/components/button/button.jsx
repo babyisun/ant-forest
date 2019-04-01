@@ -1,4 +1,5 @@
 import React from 'react';
+import { Badge, Statistic, Spin } from 'antd';
 import t from 'prop-types';
 import './button.scss';
 
@@ -7,7 +8,9 @@ const ButtonStyled = ({ scale = 'normal', kind = 'default', children }) => (
 );
 
 export const Button = ({ children, ...props }) => (
-  <ButtonStyled {...props}>{children}</ButtonStyled>
+  <Badge count={5}>
+    <ButtonStyled {...props}>{children}</ButtonStyled>
+  </Badge>
 );
 
 Button.propTypes = {
