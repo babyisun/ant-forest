@@ -15,6 +15,7 @@ export default {
     //   theme:'theme',
     themeConfig: theme,
     plugins: [
+        // css(),
         css({
             preprocessor: 'postcss',
             cssmodules: true,
@@ -36,7 +37,7 @@ export default {
             {
                 libraryName: 'antd',
                 libraryDirectory: 'es',
-                style: 'css'
+                style: true, // 'css'
             },
         ]);
         return babelrc;
