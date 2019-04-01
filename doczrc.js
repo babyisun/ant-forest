@@ -1,6 +1,7 @@
 import {
     css
 } from 'docz-plugin-css';
+import typescript from 'rollup-plugin-typescript';
 import theme from './theme'
 
 
@@ -12,9 +13,11 @@ export default {
     description: 'A component library growing on ant-design.',
     codeSandbox: false,
     hashRouter: true,
+    typescript: true,
     //   theme:'theme',
     themeConfig: theme,
     plugins: [
+        typescript(),
         css({
             preprocessor: 'postcss',
             cssmodules: true,
