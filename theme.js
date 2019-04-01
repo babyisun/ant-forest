@@ -1,3 +1,5 @@
+import { red } from "ansi-colors";
+
 const Colors = {
     Primary: '#1badff'
 };
@@ -11,6 +13,9 @@ export default {
             borderBottom: `3px solid ${Colors.Primary}`,
             fontSize: '2em',
             position:'inherit',
+            '&:before':{
+                display: 'none',
+            },
         },
         h2: '',
         h3: '',
