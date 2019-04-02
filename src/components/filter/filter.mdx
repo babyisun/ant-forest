@@ -9,10 +9,26 @@ import Filter from './filter.jsx'
 
 # Filter
 
-Buttons make common actions more obvious and help users more easily perform them.
+Filter help users more easily use them to select lists. Filter will transmit different data when user switch them.
+
+## Properties
+
+<PropsTable of={Filter} />
 
 ## Filter usage
 
 <Playground>
-    <Filter shelfList={['01', '02', '03', '05', '06']} defaultList={['01', '02', '03', '05', '06']} />
+    <Filter list={['01','02']} defaultList={['01', '02']} />
+</Playground>
+
+## Support multiple selection
+
+<Playground>
+    <Filter list={['01','02']} defaultList={['01', '02']} multiple/>
+</Playground>
+
+## When list is an object
+
+<Playground>
+    <Filter list={{1:'01',2:'02',3:'03'}} defaultList={['01', '02','03']} multiple object/>
 </Playground>
