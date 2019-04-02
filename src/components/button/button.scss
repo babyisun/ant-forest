@@ -1,3 +1,5 @@
+@import '../../common.scss';
+
 .button {
   cursor: pointer;
   margin: 3px 5px;
@@ -23,7 +25,7 @@
   }
 
   &.primary {
-    background: #1fb6ff;
+    background: $Primary;
     color: #fff;
   }
   &.secondary {
@@ -31,7 +33,7 @@
     color: #fff;
   }
   &.cancel {
-    background: #ff4949;
+    background: $Error;
     color: #fff;
   }
   &.dark {

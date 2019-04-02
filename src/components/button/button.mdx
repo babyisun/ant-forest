@@ -1,6 +1,6 @@
 ---
 name: Button
-menu: Components
+menu: 组件
 ---
 
 import { Playground, PropsTable } from 'docz'
@@ -10,26 +10,17 @@ import { Button } from './button.jsx'
 
 # Button
 
-Buttons make common actions more obvious and help users more easily perform them. Buttons use labels and sometimes icons to communicate the action that will occur when the user touches them.
+这是一个描述，描述你的组件功能与使用场景.
 
-### Best practices
+## 代码演示
 
-- Group buttons logically into sets based on usage and importance.
-- Ensure that button actions are clear and consistent.
-- The main action of a group set can be a primary button.
-- Select a single button variation and do not mix them.
-
-## Properties
-
-<PropsTable of={Button} />
-
-## Basic usage
+简单示例
 
 <Playground>
   <Button>Click me</Button>
 </Playground>
 
-## With different sizes
+带有大小参数的示例
 
 <Playground>
   <Button scale="small">Click me</Button>
@@ -37,7 +28,7 @@ Buttons make common actions more obvious and help users more easily perform them
   <Button scale="big">Click me</Button>
 </Playground>
 
-## With different colors
+带有颜色的示例
 
 <Playground>
   <Button kind="primary">Click me</Button>
@@ -46,3 +37,8 @@ Buttons make common actions more obvious and help users more easily perform them
   <Button kind="dark">Click me</Button>
   <Button kind="gray">Click me</Button>
 </Playground>
+
+
+## API
+
+<PropsTable of={Button} />
