@@ -7,16 +7,17 @@ class Filter extends Component {
   state = {
     checkedList: this.props.defaultList,
     indeterminate: !(this.props.list.length === this.props.defaultList.length),
-    checkAll: this.props.object
-      ? Object.getOwnPropertyNames(this.props.list).length === this.props.defaultList.length
-      : this.props.list.length === this.props.defaultList.length,
+    checkAll:
+      Object.prototype.toString.call(this.props.list) === '[object Object]'
+        ? Object.getOwnPropertyNames(this.props.list).length === this.props.defaultList.length
+        : this.props.list.length === this.props.defaultList.length,
   };
 
   onCheckAllChange = (e) => {
     this.setState(
       {
         checkedList: e.target.checked
-          ? this.props.object
+          ? Object.prototype.toString.call(this.props.list) === '[object Object]'
             ? Object.entries(this.props.list).map(([k, v]) => v)
             : this.props.list
           : [],
@@ -32,13 +33,15 @@ class Filter extends Component {
   onChange = (checkedList) => {
     this.setState({
       checkedList,
-      indeterminate: this.props.object
-        ? !!checkedList.length &&
-          checkedList.length < Object.getOwnPropertyNames(this.props.list).length
-        : !!checkedList.length && checkedList.length < this.props.list.length,
-      checkAll: this.props.object
-        ? checkedList.length === Object.getOwnPropertyNames(this.props.list).length
-        : checkedList.length === this.props.list.length,
+      indeterminate:
+        Object.prototype.toString.call(this.props.list) === '[object Object]'
+          ? !!checkedList.length &&
+            checkedList.length < Object.getOwnPropertyNames(this.props.list).length
+          : !!checkedList.length && checkedList.length < this.props.list.length,
+      checkAll:
+        Object.prototype.toString.call(this.props.list) === '[object Object]'
+          ? checkedList.length === Object.getOwnPropertyNames(this.props.list).length
+          : checkedList.length === this.props.list.length,
     });
     this.triggerChange(checkedList);
   };
@@ -66,7 +69,7 @@ class Filter extends Component {
           value={this.state.checkedList}
         />
       </div>
-    ) : this.props.object ? (
+    ) : Object.prototype.toString.call(this.props.list) === '[object Object]' ? (
       <Radio.Group defaultValue="-1" onChange={this.onChange} className="radioGroup">
         <Radio.Button value="-1" className="radioButton">
           全部
