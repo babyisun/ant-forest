@@ -5,7 +5,6 @@ const Colors = {
     Error: '#f74052', // 错误提示
     Title: '#333', // 标题或较深label
     Text: '#666', // 文字或正文
-
 };
 
 export default {

@@ -1,9 +1,12 @@
 
+import path from 'path';
 import { eslint } from 'rollup-plugin-eslint';
+// import alias from 'rollup-plugin-alias'
 import babel from 'rollup-plugin-babel';
 import sass from 'rollup-plugin-sass';
 
 const { NODE_ENV } = process.env;
+const pathResolve = p => path.resolve(__dirname, p);
 
 const F ={
     js:'cjs',
@@ -31,6 +34,9 @@ const config = {
     sass({
       insert: true,
     }),
+    // alias({
+    //   '@': pathResolve('src')
+    // }),
   ],
 };
 
