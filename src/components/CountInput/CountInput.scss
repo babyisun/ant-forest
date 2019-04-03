@@ -1,5 +1,33 @@
-.forestInput {
+@import '../../common.scss';
+.countInput {
+  position: relative;
+  line-height: normal;
 }
 
-.forestInput:focus {
+.counts {
+  color: #bfbfbf;
+  font-size: 14px;
+  line-height: normal;
+}
+
+.textareaContainer {
+  position: relative;
+}
+
+.textareael {
+  margin-bottom: 0 !important;
+  box-sizing: border-box;
+}
+
+.input {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  line-height: 32px;
+}
+
+.textarea {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
 }
