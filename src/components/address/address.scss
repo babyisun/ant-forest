@@ -1,0 +1,82 @@
+:global {
+  .ant-tabs-bar {
+    margin: 0 0 7px 0;
+  }
+  // 覆盖radioButton
+  .ant-radio-group {
+    font-size: 13px;
+  }
+  .ant-radio-button-wrapper {
+    border: 0;
+    margin-right: 3px;
+    border-radius: 2px;
+    &:not(:first-child)::before {
+      width: 0px;
+    }
+    &:first-child {
+      border: 0;
+      border-radius: 2px;
+    }
+    &:last-child {
+      border-radius: 2px;
+    }
+  }
+  .ant-radio-button-wrapper-checked {
+    box-shadow: none;
+  }
+  // 覆盖Card
+  .ant-card {
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+  .ant-card-head {
+    min-height: 20px;
+    padding: 0 20px;
+    border-bottom: 0;
+  }
+  .ant-card-head-title {
+    padding: 0;
+  }
+  .ant-card-body {
+    padding: 5px 13px;
+  }
+}
+
+.address-container {
+  width: 380px;
+  cursor: pointer;
+}
+
+.address-tabs-container {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin-top: 1px;
+  z-index: 999;
+}
+
+.address-cityTown-container {
+  padding: 10px 20px;
+}
+
+.tab-hide {
+  display: none;
+}
+
+.address-input {
+  position: relative;
+}
+
+.address-input-icon {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: 50%;
+  margin-top: -6px;
+  right: 12px;
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 12px;
+  transition: all 0.3s;
+  &:hover {
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
