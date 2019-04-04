@@ -1,0 +1,35 @@
+---
+name: CountInput
+menu: 组件
+---
+
+import { Playground, PropsTable } from 'docz'
+import { CountInput, FormCountInput } from './CountInput.jsx'
+
+# CountInput
+
+带计数器的输入框。
+
+## 代码演示
+
+简单示例
+
+<Playground>
+  <CountInput type="input" count={100}/>
+</Playground>
+
+文本域示例
+
+<Playground>
+  <CountInput type="textarea" count={100}/>
+</Playground>
+
+表单中使用
+
+<Playground>
+  <FormCountInput type="textarea" count={100}/>
+</Playground>
+
+## API
+
+<PropsTable of={CountInput} />
