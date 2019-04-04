@@ -52,7 +52,7 @@ export class CountInput extends Component {
   };
 
   createInput = () => {
-    const { count, type, onChange, ...args } = this.props;
+    const { count, type, onChange, value, ...args } = this.props;
     const { currentCounts, contentPaddingW, _value } = this.state;
 
     return (
@@ -76,7 +76,7 @@ export class CountInput extends Component {
   };
 
   createTextarea = () => {
-    const { count, value, type, onChange, ...args } = this.props;
+    const { count, type, onChange, value, ...args } = this.props;
     const { currentCounts, contentPaddingH, _value } = this.state;
     return (
       <div className="textareaContainer">
