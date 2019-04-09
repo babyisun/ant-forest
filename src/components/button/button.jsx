@@ -19,7 +19,7 @@ Button.propTypes = {
    */
   scales: t.oneOf(['small', 'normal', 'big']),
   /**
-    按钮类型 primary | secondary | cancel
+   * 按钮类型 primary | secondary | cancel
    */
   kind: t.oneOf(['primary', 'secondary', 'cancel', 'dark', 'gray']),
 };
