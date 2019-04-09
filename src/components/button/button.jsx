@@ -14,7 +14,13 @@ export const Button = ({ children, ...props }) => (
 );
 
 Button.propTypes = {
+  /**
+   * 按钮大小，加上描述，你们可以描述更加贴切的详细内容
+   */
   scales: t.oneOf(['small', 'normal', 'big']),
+  /**
+   * 按钮类型
+   */
   kind: t.oneOf(['primary', 'secondary', 'cancel', 'dark', 'gray']),
 };
 
