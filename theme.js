@@ -11,7 +11,6 @@ export default {
     logo: {
         src: '/public/logo.png',
         width :56,
-        title: 'Ant',
     },
     colors: {
         primary: Colors.Primary,
@@ -25,7 +24,7 @@ export default {
                 '&::after':{
                     content: '\'Ant Forest\'',
                     color: Colors.Title,
-                    fontSize: '2.6em',
+                    fontSize: '2.5em',
                     fontWeight: 'bold',
                     padding: '0 8px',
                     marginTop: 6,
