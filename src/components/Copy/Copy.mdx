@@ -1,0 +1,116 @@
+---
+name: Copy
+menu: 组件
+---
+import { Playground, PropsTable } from 'docz'
+import { Component } from 'react'
+import { Fragment } from 'react'
+import { Input, Row, Col } from 'antd'
+import Copy from './Copy.jsx'
+
+
+# Copy
+
+复制到粘贴板。
+
+## 代码演示
+
+简单示例
+
+<Playground>
+  {
+    () => {
+        class Demo extends Component {
+            constructor() {
+                this.state = {
+                    value: ''
+                }
+            }
+            render() {
+                const { value } = this.state
+                return (
+                <Fragment>
+                    <Row gutter={16}>
+                        <Col span={18}>
+                            <Input onChange={e => this.setState({value: e.target.value})}/>
+                        </Col>
+                        <Col span={6}>
+                            <Copy text={value} type="text"/>
+                        </Col>
+                    </Row>
+                </Fragment>
+            )
+            }
+        }
+        return <Demo/>
+     }
+}
+</Playground>
+
+图标模式
+
+<Playground>
+  {
+    () => {
+        class Demo extends Component {
+            constructor() {
+                this.state = {
+                    value: ''
+                }
+            }
+            render() {
+                const { value } = this.state
+                return (
+                <Fragment>
+                    <Row gutter={16}>
+                        <Col span={18}>
+                            <Input onChange={e => this.setState({value: e.target.value})}/>
+                        </Col>
+                        <Col span={6}>
+                            <Copy text={value} type="icon"/>
+                        </Col>
+                    </Row>
+                </Fragment>
+            )
+            }
+        }
+        return <Demo/>
+     }
+}
+</Playground>
+
+自定义文案样式
+
+<Playground>
+  {
+    () => {
+        class Demo extends Component {
+            constructor() {
+                this.state = {
+                    value: ''
+                }
+            }
+            render() {
+                const { value } = this.state
+                return (
+                <Fragment>
+                    <Row gutter={16}>
+                        <Col span={18}>
+                            <Input onChange={e => this.setState({value: e.target.value})}/>
+                        </Col>
+                        <Col span={6}>
+                            <Copy text={value} type="text" label="复制" tipsIcon={{twoToneColor: "#FF7F00", type: "check-square"}}/>
+                        </Col>
+                    </Row>
+                </Fragment>
+            )
+            }
+        }
+        return <Demo/>
+     }
+}
+</Playground>
+
+## API
+
+<PropsTable of={Copy} />
