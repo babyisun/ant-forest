@@ -5,9 +5,10 @@ import theme from './theme'
 
 
 export default {
-    //   src: './components',
+    // src: './src',
     dest: './doc',
     //   base: '/ant-forest',
+    // public: './public',
     title: 'Ant Forest',
     description: 'A component library growing on ant-design.',
     codeSandbox: false,
