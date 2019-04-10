@@ -1,0 +1,31 @@
+---
+name: Address
+menu: 组件
+---
+
+import { Playground, PropsTable } from 'docz'
+import Address from './address.jsx'
+
+
+# Address
+
+省市县级联选择
+
+## 代码演示
+
+简单示例
+
+<Playground>
+  <Address />
+</Playground>
+
+添加默认项与取消清除示例
+
+<Playground>
+  <Address placeholder="请选择" allowClear={false} defaultValue={['210000','210200']}/>
+</Playground>
+
+## API
+
+<PropsTable of={Address} />
+
