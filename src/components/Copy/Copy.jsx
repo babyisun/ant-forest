@@ -8,9 +8,12 @@ import './Copy.scss';
 class Copy extends Component {
   state = {
     copied: false,
+    preCombatant: false,
   };
 
   onCopy = () => {
+    const { copied, preCombatant } = this.state;
+    if (preCombatant) return;
     this.setState(
       {
         copied: true,
@@ -25,6 +28,18 @@ class Copy extends Component {
     );
   };
 
+  handleCombatant = ({ type }) => {
+    if (type === 'enter') {
+      this.setState({
+        preCombatant: true,
+      });
+    } else {
+      this.setState({
+        preCombatant: false,
+      });
+    }
+  };
+
   createContent = () => {
     const { type, label } = this.props;
     return type === 'text' ? <span>{label}</span> : <Icon className="iconSize" type="copy" />;
@@ -33,11 +48,10 @@ class Copy extends Component {
   render() {
     const { label, text, type, children, tipsIcon, ...args } = this.props;
     const { copied } = this.state;
-    console.log(text);
     return (
       <CopyToClipboard text={text} onCopy={this.onCopy} {...args}>
         <button className={`copyBtn ${type === 'text' ? 'minWidth' : null}`} size="small">
-          <QueueAnim component="div" type={['top', 'bottom']}>
+          <QueueAnim component="div" type={['top', 'bottom']} onEnd={this.handleCombatant}>
             {copied ? (
               <div key="1" className="copyIcon">
                 <Icon
