@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Radio, Checkbox } from 'antd';
 import t from 'prop-types';
-import './Filter.scss';
+import './filter.scss';
 
 class Filter extends Component {
   state = {
@@ -70,10 +70,8 @@ class Filter extends Component {
         />
       </div>
     ) : Object.prototype.toString.call(this.props.list) === '[object Object]' ? (
-      <Radio.Group defaultValue="-1" onChange={this.onChange} className="radioGroup">
-        <Radio.Button value="-1" className="radioButton">
-          全部
-        </Radio.Button>
+      <Radio.Group onChange={this.onChange} className="radioGroup">
+        <Radio.Button className="radioButton">全部</Radio.Button>
         {Object.entries(this.props.list).map(([k, v]) => (
           <Radio.Button key={k} value={+k} className="radioButton">
             {v}
@@ -81,7 +79,11 @@ class Filter extends Component {
         ))}
       </Radio.Group>
     ) : (
-      <Radio.Group defaultValue="-1" onChange={this.onChange} className="radioGroup">
+      <Radio.Group
+        defaultValue={this.props.defaultList}
+        onChange={this.onChange}
+        className="radioGroup"
+      >
         <Radio.Button value="-1" className="radioButton">
           全部
         </Radio.Button>
@@ -96,12 +98,21 @@ class Filter extends Component {
 }
 export default Filter;
 Filter.propTypes = {
+  /**
+   * 数据格式 Object | Array
+   */
   list: t.oneOf([Object, Array]),
-  defaultList: t.oneOf([Object, Array]),
+  /**
+   * 设置单选或多选状态 false | true
+   */
   multiple: t.bool,
+  /**
+   * 初始选中的数据，单选状态数据格式为String，多选状态为Array
+   */
+  defaultList: t.oneOf([String, Array]),
 };
 Filter.defaultProps = {
   list: Array,
-  defaultList: Array,
   multiple: false,
+  defaultList: Array,
 };

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Anchor, Card, Button, Avatar, Icon } from 'antd';
+import t from 'prop-types';
 import './Category.scss';
 
 const { Link } = Anchor;
@@ -189,3 +190,17 @@ class Category extends Component {
   }
 }
 export default Category;
+Category.propTypes = {
+  /**
+   * 数据格式Array，按示例将每个小卡片的数据放在一个对象里
+   */
+  originArr: t.array,
+  /**
+   * 指定容器，可以设置容器的id（String格式）或直接传入window（此时容器为body）
+   */
+  container: t.oneOf([String, window]),
+};
+Category.defaultProps = {
+  originArr: Array,
+  container: 'container',
+};
