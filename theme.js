@@ -35,9 +35,13 @@ export default {
                 position: 'inherit',
             },
             '& .css-wwgiek + div + div > div': {
-                '@media (min-width: 1024px)': {
-                    width: '1024px',
-                }
+                width: 'calc(100% - 40px)',
+                // '@media (min-width: 1024px)': {
+                //     width: '1024px',
+                // },
+                // '@media (min-width: 1400px)': {
+                //     width: '1400px',
+                // }
             },
         },
         h1: {
