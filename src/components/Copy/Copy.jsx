@@ -80,7 +80,7 @@ Copy.propTypes = {
 };
 
 Copy.defaultProps = {
-  /*eslint-disabled*/
+  /* eslint-disable */
   value: '',
   type: 'text',
   label: '复制到粘贴板',
