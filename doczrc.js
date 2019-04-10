@@ -44,7 +44,7 @@ export default {
         return babelrc;
     },
     htmlContext: {
-        favicon: '/favicon.ico',
+        favicon: '/public/favicon.ico',
         // head: {
         //     links: [{
         //         rel: 'stylesheet',
