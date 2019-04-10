@@ -2,9 +2,10 @@
 name: CountInput
 menu: 组件
 ---
-
-import { Playground, PropsTable } from 'docz'
-import { CountInput, FormCountInput } from './CountInput.jsx'
+import { Component } from 'react';
+import { Playground, PropsTable } from 'docz';
+import { Form } from 'antd';
+import CountInput from './CountInput.jsx';
 
 # CountInput
 
@@ -15,19 +16,44 @@ import { CountInput, FormCountInput } from './CountInput.jsx'
 简单示例
 
 <Playground>
-  <CountInput type="input" count={100}/>
+  <CountInput type="input" count={100} />
 </Playground>
 
 文本域示例
 
 <Playground>
-  <CountInput type="textarea" count={100}/>
+  <CountInput type="textarea" count={100} />
 </Playground>
 
 表单中使用
 
 <Playground>
-  <FormCountInput type="textarea" count={100}/>
+  {
+    () => {
+      class Container extends Component {
+        render() {
+          const { form } = this.props;
+          return (
+            <Form>
+              <Form.Item label="表单测试">
+                {form.getFieldDecorator('text', {
+                  initialValue: '',
+                  rules: [
+                    {
+                      required: true,
+                      message: '必填',
+                    },
+                  ],
+                })(<CountInput type="input" count={20} />)}
+              </Form.Item>
+            </Form>
+          );
+        }
+      }
+      const FormCountInput = Form.create()(Container);
+      return <FormCountInput/>
+    }
+  }
 </Playground>
 
 ## API

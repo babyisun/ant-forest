@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import { Input, Form } from 'antd';
+import { Input } from 'antd';
 import t from 'prop-types';
 import './CountInput.scss';
 
 const { TextArea } = Input;
 
-export class CountInput extends Component {
+class CountInput extends Component {
   state = {
     currentCounts: 0,
     _value: '',
@@ -109,8 +109,16 @@ export class CountInput extends Component {
   }
 }
 
+export default CountInput;
+
 CountInput.propTypes = {
+  /**
+    输入数量限制
+  */
   count: t.number,
+  /**
+    带计数器输入框的类型
+  */
   type: t.oneOf(['input', 'textarea']),
 };
 
@@ -118,30 +126,3 @@ CountInput.defaultProps = {
   count: 20,
   type: 'input',
 };
-
-class Container extends Component {
-  render() {
-    const { form } = this.props;
-    return (
-      <Form>
-        <Form.Item label="表单测试">
-          {form.getFieldDecorator('text', {
-            initialValue: '',
-            rules: [
-              {
-                max: 20,
-                message: '最多支持20个字符',
-              },
-              {
-                required: true,
-                message: '必填',
-              },
-            ],
-          })(<CountInput type="input" count={20} />)}
-        </Form.Item>
-      </Form>
-    );
-  }
-}
-
-export const FormCountInput = Form.create()(Container);
