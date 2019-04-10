@@ -15,6 +15,9 @@ export default {
         body: {
             '& .css-pccrlp > div:last-child':{
             display: 'none',
+            },
+            '& .react-live > div:first-of-type':{
+                position: 'inherit',
             }
         },
         h1: {

@@ -1,33 +1,40 @@
 import React, { Component } from 'react';
-import { Tabs, Radio, Card, Mention, Icon } from 'antd';
+import { Tabs, Radio, Card, Input, Icon } from 'antd';
 import citys from './city';
+import t from 'prop-types';
 import './address.scss';
 
 const TabPane = Tabs.TabPane;
 const RadioGroup = Radio.Group;
-const { toContentState } = Mention;
 
 class Address extends Component {
-  state = {
-    activeKey: '1',
-    tabHide: false,
-    provinceAG: [],
-    provinceHK: [],
-    provinceLS: [],
-    provinceTZ: [],
-    selectCity: [],
-    selectTown: [],
-    selectedAddress: '',
-    selectedPro: '',
-    selectedCity: '',
-    selectedTown: '',
-    proValue: '',
-    cityValue: '',
-    townValue: '',
-    iconHide: false,
-  };
+  constructor(props) {
+    super(props);
+    this.textDiv = React.createRef();
+    this.state = {
+      activeKey: '1',
+      spanKey: '',
+      tabHide: false,
+      provinceAG: [],
+      provinceHK: [],
+      provinceLS: [],
+      provinceTZ: [],
+      selectCity: [],
+      selectTown: [],
+      selectedAddress: '',
+      selectedPro: '',
+      selectedCity: '',
+      selectedTown: '',
+      proValue: '',
+      cityValue: '',
+      townValue: '',
+      iconHide: false,
+    };
+  }
 
   componentDidMount() {
+    const { defaultValue } = this.props;
+    const uuidv1 = require('uuid/v1');
     let isAG = [];
     let isHK = [];
     let isLS = [];
@@ -48,18 +55,24 @@ class Address extends Component {
       provinceHK: isHK,
       provinceLS: isLS,
       provinceTZ: isTZ,
+      spanKey: uuidv1(),
     });
     document.addEventListener('click', this.globalFun);
+    if (defaultValue && defaultValue.length) {
+      this.showDefaultValue(defaultValue);
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.globalFun);
   }
 
-  globalFun = () => {
-    this.setState({
-      tabHide: false,
-    });
+  globalFun = (e) => {
+    if (e.target.id !== this.textDiv.current.props.id) {
+      this.setState({
+        tabHide: false,
+      });
+    }
   };
 
   changePane = (key) => {
@@ -106,7 +119,6 @@ class Address extends Component {
   };
 
   inputClick = (e) => {
-    e.nativeEvent.stopImmediatePropagation();
     const tabHide = !this.state.tabHide;
     this.setState({
       tabHide,
@@ -143,6 +155,40 @@ class Address extends Component {
     }
   };
 
+  showDefaultValue = (defaultValue) => {
+    let province, city, town, selectedAddress;
+    if (defaultValue.length < 4) {
+      province = citys.find((item) => item.value === defaultValue[0]);
+      if (province) {
+        selectedAddress = province.label;
+        this.setState({
+          selectedAddress,
+          selectCity: province.children,
+          proValue: province.value,
+          selectedPro: province.label,
+        });
+        city = province.children.find((item) => item.value === defaultValue[1]);
+        if (city) {
+          selectedAddress += ` / ${city.label}`;
+          this.setState({
+            selectedAddress,
+            selectTown: city.children,
+            cityValue: city.value,
+            selectedCity: city.label,
+          });
+          town = city.children.find((item) => item.value === defaultValue[2]);
+          if (town) {
+            selectedAddress += ` / ${town.label}`;
+            this.setState({
+              selectedAddress,
+              townValue: town.value,
+            });
+          }
+        }
+      }
+    }
+  };
+
   render() {
     const {
       activeKey,
@@ -158,20 +204,28 @@ class Address extends Component {
       cityValue,
       townValue,
       iconHide,
+      spanKey,
     } = this.state;
-
+    const { placeholder, allowClear = true } = this.props;
     return (
       <div className="address-container">
         <div
-          className="address-input"
           onClick={(e) => this.inputClick(e)}
           onMouseEnter={this.mouseEnter}
           onMouseLeave={this.mouseLeave}
+          className="address-select"
         >
-          <Mention placeholder="Please select" value={toContentState(selectedAddress)} readOnly />
-          {iconHide ? (
+          <Input
+            id={spanKey}
+            className="address-input"
+            ref={this.textDiv}
+            readOnly
+            value={selectedAddress}
+            placeholder={placeholder ? placeholder : 'Please select'}
+          />
+          {allowClear && iconHide ? (
             <Icon
-              className="address-input-icon"
+              className="address-select-icon"
               type="close-circle"
               theme="filled"
               onClick={(e) => this.iconClick(e)}
@@ -186,11 +240,11 @@ class Address extends Component {
         >
           <Tabs activeKey={activeKey} onChange={this.changePane}>
             <TabPane tab="省份" key="1">
-              <div>
+              <div onFocusCapture={this.changeRadioProvince}>
                 <RadioGroup
                   buttonStyle="solid"
                   size="small"
-                  onChange={this.changeRadioProvince}
+                  // onChange={this.changeRadioProvince}
                   value={proValue}
                 >
                   <Card title="A-G" bordered={false}>
@@ -225,12 +279,12 @@ class Address extends Component {
               </div>
             </TabPane>
             <TabPane tab="城市" key="2">
-              <div className="address-cityTown-container">
+              <div className="address-cityTown-container" onFocusCapture={this.changeRadioCity}>
                 {selectCity && selectCity.length ? (
                   <RadioGroup
                     buttonStyle="solid"
                     size="small"
-                    onChange={this.changeRadioCity}
+                    // onChange={this.changeRadioCity}
                     value={cityValue}
                   >
                     {selectCity.map((item) => {
@@ -241,12 +295,12 @@ class Address extends Component {
               </div>
             </TabPane>
             <TabPane tab="区县" key="3">
-              <div className="address-cityTown-container">
+              <div className="address-cityTown-container" onFocusCapture={this.changeRadioTown}>
                 {selectTown && selectTown.length ? (
                   <RadioGroup
                     buttonStyle="solid"
                     size="small"
-                    onChange={this.changeRadioTown}
+                    // onChange={this.changeRadioTown}
                     value={townValue}
                   >
                     {selectTown.map((item) => {
@@ -264,3 +318,24 @@ class Address extends Component {
 }
 
 export default Address;
+
+Address.propTypes = {
+  /**
+   * 输入框占位文本
+   */
+  placeholder: t.string,
+  /**
+   * 是否支持清除
+   */
+  allowClear: t.bool,
+  /**
+   * 默认的选中项
+   */
+  defaultValue: t.array,
+};
+
+Address.defaultProps = {
+  placeholder: 'Please select',
+  allowClear: 'true',
+  defaultValue: '[]',
+};

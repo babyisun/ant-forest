@@ -13,14 +13,19 @@ import Address from './address.jsx'
 
 ## 代码演示
 
-示例
+简单示例
 
 <Playground>
   <Address />
 </Playground>
 
+添加默认项与取消清除示例
+
 <Playground>
-  <Address />
+  <Address placeholder="请选择" allowClear={false} defaultValue={['210000','210200']}/>
 </Playground>
 
+## API
+
+<PropsTable of={Address} />
 
