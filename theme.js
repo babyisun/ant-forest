@@ -10,7 +10,7 @@ const Colors = {
 export default {
     logo: {
         src: '/public/logo.png',
-        width :66,
+        width :56,
         title: 'Ant',
     },
     colors: {
@@ -18,41 +18,56 @@ export default {
     },
     styles: {
         body: {
-            '& .css-pccrlp > div:last-child':{
+            '& .css-pccrlp > div:last-child': {
                 display: 'none',
             },
-            '& .css-pccrlp > div:first-of-type a':{
-                // display:'block',
-                // width:'150px',
+            '& .css-pccrlp > div:first-of-type a': {
                 '&::after':{
                     content: '\'Ant Forest\'',
                     color: Colors.Title,
-                    fontSize: '2em',
+                    fontSize: '2.6em',
                     fontWeight: 'bold',
-                    padding: 10,
+                    padding: '0 8px',
                     marginTop: 6,
                     position: 'absolute',
-                    // display: 'block',
-                    // width: '150px',
                 },
             },
-            '& .react-live > div:first-of-type':{
+            '& .react-live > div:first-of-type': {
                 position: 'inherit',
-            }
+            },
+            '& .css-wwgiek + div + div > div': {
+                '@media (min-width: 1024px)': {
+                    width: '1024px',
+                }
+            },
         },
         h1: {
             borderBottom: `3px solid ${Colors.Primary}`,
-            fontSize: '2em',
+            fontSize: '1.6em',
             position:'inherit',
             '&::before':{
                 display: 'none',
             },
         },
-        h2: '',
-        h3: '',
-        h4: '',
-        h5: '',
-        h6: '',
+        h2: {
+            fontSize: '1.2em',
+            fontWeight: 'bold',
+        },
+        h3: {
+            fontSize: '1em',
+        },
+        h4: {
+            fontSize: '0.8em',
+        },
+        h5: {
+            fontSize: '0.6em',
+        },
+        h6: {
+            fontSize: '0.5em',
+        },
+        p: {
+            fontSize: '14px',
+        }
     },
 
 };
