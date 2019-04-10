@@ -5,7 +5,7 @@ menu: 组件
 import { Playground, PropsTable } from 'docz'
 import { Component } from 'react'
 import { Fragment } from 'react'
-import { Input, Row, Col } from 'antd'
+import { Input, Row, Col, Form } from 'antd'
 import Copy from './Copy.jsx'
 
 
@@ -55,7 +55,7 @@ import Copy from './Copy.jsx'
         class Demo extends Component {
             constructor() {
                 this.state = {
-                    value: ''
+                    value: '123'
                 }
             }
             render() {
@@ -64,7 +64,7 @@ import Copy from './Copy.jsx'
                 <Fragment>
                     <Row gutter={16}>
                         <Col span={18}>
-                            <Input onChange={e => this.setState({value: e.target.value})}/>
+                            <Input value={value} onChange={e => this.setState({value: e.target.value})}/>
                         </Col>
                         <Col span={6}>
                             <Copy text={value} type="icon"/>
@@ -109,6 +109,66 @@ import Copy from './Copy.jsx'
         return <Demo/>
      }
 }
+</Playground>
+
+绑定 Input
+
+<Playground>
+  {
+    () => {
+        class Demo extends Component {
+            constructor() {
+                this.state = {
+                    value: ''
+                }
+            }
+            render() {
+                const { value } = this.state
+                return (
+                <Fragment>
+                    <Row gutter={16}>
+                        <Col span={18}>
+                            <Copy withInput text={value} type="icon"/>
+                        </Col>
+                    </Row>
+                </Fragment>
+            )
+            }
+        }
+        return <Demo/>
+     }
+}
+</Playground>
+
+表单中使用
+
+<Playground>
+  {
+    () => {
+      class Container extends Component {
+        render() {
+          const { form } = this.props;
+          return (
+            <Form>
+              <Form.Item label="表单测试">
+                {form.getFieldDecorator('text', {
+                  initialValue: '123',
+                  rules: [
+                    {
+                      required: true,
+                      message: '必填',
+                    },
+                  ],
+                })(<Copy withInput type="icon"/>)}
+              </Form.Item>
+            </Form>
+          );
+        }
+      }
+      const FormCountInput = Form.create()(Container);
+      return <FormCountInput/>
+    }
+  }
 </Playground>
 
 ## API
