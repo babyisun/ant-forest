@@ -98,12 +98,10 @@ export default Filter;
 Filter.propTypes = {
   list: t.oneOf([Object, Array]),
   defaultList: t.oneOf([Object, Array]),
-  multiple: t.oneOf([true, false]),
-  object: t.oneOf([true, false]),
+  multiple: t.bool,
 };
 Filter.defaultProps = {
   list: Array,
   defaultList: Array,
   multiple: false,
-  object: false,
 };

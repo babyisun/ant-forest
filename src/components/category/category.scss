@@ -1,0 +1,91 @@
+:global {
+  body {
+    #card {
+      position: relative;
+      .active {
+        display: block;
+        color: white;
+        background-color: #40a9ff;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        border-radius: 50%;
+        text-align: center;
+      }
+      .anchor-wrapper {
+        background-color: transparent;
+      }
+      .wrapper {
+        margin: -25px auto 15px 15px;
+        .item {
+          display: inline-block;
+          width: 196px;
+          height: 90px;
+          border: 1px solid #ccc;
+          margin: 8px;
+          font-size: 18px;
+          color: #666;
+          .elem-name {
+            margin-left: 9px;
+          }
+          .avatar {
+            margin: 13px auto auto 6px;
+          }
+          .item-footer {
+            width: 177px;
+            margin: 7px auto 0px;
+            font-size: 11px;
+            color: #666;
+            opacity: 0.8;
+            border-top: 1px solid #ccc;
+            padding-left: 30px;
+            .browser {
+              float: right;
+            }
+            .plugins,
+            .job-number {
+              float: right;
+              i {
+                margin-left: 2px;
+              }
+            }
+          }
+        }
+      }
+      .character {
+        position: absolute;
+        right: 0;
+        top: 100px;
+        a {
+          display: block;
+          color: black;
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          background-color: #d3d3d3;
+          opacity: 0.8;
+          border-radius: 50%;
+          text-align: center;
+          text-decoration: none;
+        }
+        .ant-anchor-ink {
+          display: none;
+        }
+        .ant-anchor-ink::before {
+          display: none;
+        }
+        .ant-anchor-link {
+          padding: 2px 0 2px 16px;
+          .ant-anchor-link-title:hover {
+            color: white;
+            background-color: #40a9ff;
+          }
+          .ant-anchor-link-title-active {
+            color: white;
+            background-color: #40a9ff;
+          }
+        }
+      }
+    }
+  }
+}
