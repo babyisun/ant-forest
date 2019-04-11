@@ -6,8 +6,8 @@ import theme from './theme'
 
 export default {
     // src: './src',
-    dest: './doc',
-    //   base: '/ant-forest',
+    dest: './docs',
+    base: '/ant-forest',
     // public: './public',
     title: 'Ant Forest',
     description: 'A component library growing on ant-design.',

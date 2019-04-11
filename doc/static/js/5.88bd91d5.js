@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{"./.docz/app/imports.js":function(n,t,o){"use strict";o.r(t),o.d(t,"imports",function(){return r});var r={"src/index.mdx":function(){return o.e(3).then(o.bind(null,"./src/index.mdx"))},"src/components/button/button.mdx":function(){return o.e(2).then(o.bind(null,"./src/components/button/button.mdx"))}}}},0,[2,3]]);

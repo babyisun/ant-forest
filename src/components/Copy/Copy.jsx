@@ -1,5 +1,5 @@
 import React, { Component, Fragment, Children } from 'react';
-import { Button, Icon } from 'antd';
+import { Button, Icon, Input } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QueueAnim from 'rc-queue-anim';
 import t from 'prop-types';
@@ -9,7 +9,24 @@ class Copy extends Component {
   state = {
     copied: false,
     preCombatant: false,
+    inputValue: '',
   };
+
+  componentDidMount() {
+    if (this.props.value) {
+      this.setState({
+        inputValue: this.props.value,
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.value && JSON.stringify(nextProps) !== JSON.stringify(this.props)) {
+      this.setState({
+        inputValue: nextProps.value,
+      });
+    }
+  }
 
   onCopy = () => {
     const { copied, preCombatant } = this.state;
@@ -45,12 +62,26 @@ class Copy extends Component {
     return type === 'text' ? <span>{label}</span> : <Icon className="iconSize" type="copy" />;
   };
 
-  render() {
-    const { label, text, type, children, tipsIcon, ...args } = this.props;
-    const { copied } = this.state;
+  renderCopy = () => {
+    const { label, text, type, withInput, children, tipsIcon = {}, ...args } = this.props;
+    const { copied, inputValue } = this.state;
+
+    const computedIsInput = () => {
+      if (withInput) {
+        return !!inputValue;
+      } else {
+        return !!text;
+      }
+    };
     return (
-      <CopyToClipboard text={text} onCopy={this.onCopy} {...args}>
-        <button className={`copyBtn ${type === 'text' ? 'minWidth' : null}`} size="small">
+      <CopyToClipboard text={withInput ? inputValue : text} onCopy={this.onCopy} {...args}>
+        <button
+          disabled={!computedIsInput()}
+          className={`copyBtn ${type === 'text' ? 'minWidth' : null} ${
+            !computedIsInput() ? 'disabled' : ''
+          } ${withInput ? 'inputCopyBtn' : null}`}
+          size="small"
+        >
           <QueueAnim component="div" type={['top', 'bottom']} onEnd={this.handleCombatant}>
             {copied ? (
               <div key="1" className="copyIcon">
@@ -69,6 +100,24 @@ class Copy extends Component {
         </button>
       </CopyToClipboard>
     );
+  };
+
+  handleInput = (e) => {
+    const { onChange } = this.props;
+    this.setState({ inputValue: e.target.value });
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
+
+  renderInputCopy = () => {
+    const { inputValue } = this.state;
+    return <Input value={inputValue} onChange={this.handleInput} addonAfter={this.renderCopy()} />;
+  };
+
+  render() {
+    const { withInput } = this.props;
+    return withInput ? this.renderInputCopy() : this.renderCopy();
   }
 }
 
@@ -91,12 +140,14 @@ Copy.propTypes = {
         复制成功图标配置
     */
   tipsIcon: t.object,
+  /**
+        与 Input 绑定, 支持 antd form 包裹
+    */
+  withInput: t.bool,
 };
 
 Copy.defaultProps = {
-  /* eslint-disable */
-  // value: '',
+  withInput: false,
   type: 'text',
   label: '复制到粘贴板',
-  // tipsIcon: null,
 };

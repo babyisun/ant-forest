@@ -7,9 +7,15 @@ const Colors = {
     Text: '#666', // 文字或正文
 };
 
+const { NODE_ENV } = process.env;
+const F ={
+    development:'',
+    production:'/ant-forest'
+}
+
 export default {
     logo: {
-        src: '/public/logo.png',
+        src: `${F[NODE_ENV]}/public/logo.png`,
         width :56,
     },
     colors: {

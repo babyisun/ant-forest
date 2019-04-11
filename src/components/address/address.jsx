@@ -22,6 +22,7 @@ class Address extends Component {
       selectCity: [],
       selectTown: [],
       selectedAddress: '',
+      selectedAddressValue: [],
       selectedPro: '',
       selectedCity: '',
       selectedTown: '',
@@ -29,11 +30,12 @@ class Address extends Component {
       cityValue: '',
       townValue: '',
       iconHide: false,
+      propsValue: false,
     };
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props;
+    const { defaultValue, value } = this.props;
     const uuidv1 = require('uuid/v1');
     let isAG = [];
     let isHK = [];
@@ -61,10 +63,30 @@ class Address extends Component {
     if (defaultValue && defaultValue.length) {
       this.showDefaultValue(defaultValue);
     }
+    if (value && value.length) {
+      this.showDefaultValue(value);
+      this.setState({
+        propsValue: true,
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { value } = this.props;
+    if (value && value.length && value !== nextProps.value) {
+      this.showDefaultValue(value);
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.globalFun);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedAddress } = this.state;
+    if (selectedAddress !== prevState.selectedAddress) {
+      this.textDiv.current.props.onChange();
+    }
   }
 
   globalFun = (e) => {
@@ -88,6 +110,7 @@ class Address extends Component {
       cityValue: '',
       selectCity: city.children,
       selectedAddress: city.label,
+      selectedAddressValue: [city.value],
       selectedPro: city.label,
       selectTown: [],
       activeKey: '2',
@@ -95,7 +118,7 @@ class Address extends Component {
   };
 
   changeRadioCity = (e) => {
-    const { selectCity, selectedPro } = this.state;
+    const { selectCity, selectedPro, proValue } = this.state;
     const town = selectCity.find((item) => item.value === e.target.value);
     this.setState({
       cityValue: e.target.value,
@@ -103,34 +126,47 @@ class Address extends Component {
       selectTown: town.children,
       selectedCity: town.label,
       selectedAddress: `${selectedPro} / ${town.label}`,
+      selectedAddressValue: [proValue, town.value],
       activeKey: '3',
     });
   };
 
   changeRadioTown = (e) => {
-    const { selectTown, selectedPro, selectedCity } = this.state;
+    const { selectTown, selectedPro, selectedCity, proValue, cityValue } = this.state;
     const selectedTown = selectTown.find((item) => item.value === e.target.value);
     this.setState({
       townValue: e.target.value,
       selectedTown,
       selectedAddress: `${selectedPro} / ${selectedCity} / ${selectedTown.label}`,
+      selectedAddressValue: [proValue, cityValue, e.target.value],
       tabHide: false,
     });
   };
 
-  inputClick = (e) => {
+  inputClick = () => {
     const tabHide = !this.state.tabHide;
     this.setState({
       tabHide,
     });
   };
 
+  changeInput = () => {
+    const { selectedAddressValue } = this.state;
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(selectedAddressValue);
+    }
+  };
+
   iconClick = (e) => {
     e.stopPropagation();
     this.setState({
       selectedAddress: '',
+      selectedAddressValue: [],
       activeKey: '1',
       proValue: '',
+      cityValue: '',
+      townValue: '',
       selectCity: [],
       selectTown: [],
       iconHide: false,
@@ -163,6 +199,7 @@ class Address extends Component {
         selectedAddress = province.label;
         this.setState({
           selectedAddress,
+          selectedAddressValue: [province.value],
           selectCity: province.children,
           proValue: province.value,
           selectedPro: province.label,
@@ -172,16 +209,20 @@ class Address extends Component {
           selectedAddress += ` / ${city.label}`;
           this.setState({
             selectedAddress,
+            selectedAddressValue: [province.value, city.value],
             selectTown: city.children,
             cityValue: city.value,
             selectedCity: city.label,
+            activeKey: '2',
           });
           town = city.children.find((item) => item.value === defaultValue[2]);
           if (town) {
             selectedAddress += ` / ${town.label}`;
             this.setState({
               selectedAddress,
+              selectedAddressValue: [province.value, city.value, town.value],
               townValue: town.value,
+              activeKey: '3',
             });
           }
         }
@@ -205,10 +246,11 @@ class Address extends Component {
       townValue,
       iconHide,
       spanKey,
+      propsValue,
     } = this.state;
-    const { placeholder, allowClear = true } = this.props;
+    const { placeholder, allowClear = true, className } = this.props;
     return (
-      <div className="address-container">
+      <div>
         <div
           onClick={(e) => this.inputClick(e)}
           onMouseEnter={this.mouseEnter}
@@ -217,7 +259,8 @@ class Address extends Component {
         >
           <Input
             id={spanKey}
-            className="address-input"
+            className={'address-input' + className}
+            onChange={this.changeInput}
             ref={this.textDiv}
             readOnly
             value={selectedAddress}
@@ -240,7 +283,7 @@ class Address extends Component {
         >
           <Tabs activeKey={activeKey} onChange={this.changePane}>
             <TabPane tab="省份" key="1">
-              <div onFocusCapture={this.changeRadioProvince}>
+              <div onFocusCapture={propsValue ? null : this.changeRadioProvince}>
                 <RadioGroup
                   buttonStyle="solid"
                   size="small"
@@ -279,7 +322,10 @@ class Address extends Component {
               </div>
             </TabPane>
             <TabPane tab="城市" key="2">
-              <div className="address-cityTown-container" onFocusCapture={this.changeRadioCity}>
+              <div
+                className="address-cityTown-container"
+                onFocusCapture={propsValue ? null : this.changeRadioCity}
+              >
                 {selectCity && selectCity.length ? (
                   <RadioGroup
                     buttonStyle="solid"
@@ -295,7 +341,10 @@ class Address extends Component {
               </div>
             </TabPane>
             <TabPane tab="区县" key="3">
-              <div className="address-cityTown-container" onFocusCapture={this.changeRadioTown}>
+              <div
+                className="address-cityTown-container"
+                onFocusCapture={propsValue ? null : this.changeRadioTown}
+              >
                 {selectTown && selectTown.length ? (
                   <RadioGroup
                     buttonStyle="solid"
@@ -332,10 +381,20 @@ Address.propTypes = {
    * 默认的选中项
    */
   defaultValue: t.array,
+  /**
+   * 指定选中项
+   */
+  value: t.array,
+  /**
+   * 自定义类名
+   */
+  className: t.string,
 };
 
 Address.defaultProps = {
   placeholder: 'Please select',
-  allowClear: 'true',
-  defaultValue: '[]',
+  allowClear: true,
+  defaultValue: [],
+  value: [],
+  className: '',
 };
