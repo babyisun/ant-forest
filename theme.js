@@ -8,11 +8,14 @@ const Colors = {
 };
 
 const { NODE_ENV } = process.env;
-console.log(NODE_ENV, 'hello');
+const F ={
+    development:'',
+    production:'/ant-forest'
+}
 
 export default {
     logo: {
-        src: '/ant-forest/public/logo.png',
+        src: `${F[NODE_ENV]}/public/logo.png`,
         width :56,
     },
     colors: {
