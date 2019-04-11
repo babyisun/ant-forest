@@ -32,8 +32,8 @@
     "build:js": "cross-env NODE_ENV=js rollup -c -o --silent lib/index.js",
     "build:es": "cross-env NODE_ENV=es rollup -c -o --silent es/index.js",
     "build": "yarn build:js && yarn build:js",
-    "dev": "yarn docz dev",
-    "doc": "yarn docz build",
+    "dev": "cross-env NODE_ENV=dev yarn docz dev",
+    "doc": "cross-env NODE_ENV=build yarn docz build",
     "clean": "rimraf lib es",
     "see": "http-server docs -p 8010 -o"
   },
