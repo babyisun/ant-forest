@@ -9,7 +9,7 @@ const Colors = {
 
 export default {
     logo: {
-        src: '/public/logo.png',
+        src: '/ant-forest/public/logo.png',
         width :56,
     },
     colors: {
