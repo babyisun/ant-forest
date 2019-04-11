@@ -8,7 +8,7 @@ export default {
     // src: './src',
     dest: './doc',
     //   base: '/ant-forest',
-    // public: './public',
+    public: './public',
     title: 'Ant Forest',
     description: 'A component library growing on ant-design.',
     codeSandbox: false,
