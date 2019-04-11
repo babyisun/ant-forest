@@ -41,15 +41,11 @@
             opacity: 0.8;
             border-top: 1px solid #ccc;
             padding-left: 30px;
+            overflow: hidden;
+            .plugins,
+            .job-number,
             .browser {
               float: right;
-            }
-            .plugins,
-            .job-number {
-              float: right;
-              i {
-                margin-left: 2px;
-              }
             }
           }
         }
@@ -69,6 +65,9 @@
           border-radius: 50%;
           text-align: center;
           text-decoration: none;
+        }
+        .ant-anchor-wrapper {
+          background-color: transparent;
         }
         .ant-anchor-ink {
           display: none;
