@@ -26,6 +26,10 @@ yarn add antd-forest
 
 * 主流浏览器与IE 10以上版本
 
+| 参数 | 类型 | 说明 |
+|----------|----------|----------|
+|  arr  |  Array  | 第一层函数参数，传入待计算数组 |
+
 | IE | Firefox | Chrome | Safari |
 | - | - | - | - | - | - |
 | IE10+, Edge | last 2 versions | last 2 versions | last 2 versions |
