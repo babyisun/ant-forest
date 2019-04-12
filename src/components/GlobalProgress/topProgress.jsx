@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import NProgress from 'nprogress';
 import t from 'prop-types';
-import './GlobalProgress.scss';
+import './topProgress.scss';
 
 const globalProgress = ({ ...props }) => <Fragment />;
 

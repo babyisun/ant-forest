@@ -1,12 +1,12 @@
 ---
-name: GlobalProgress
+name: topProgress 顶部进度条
 menu: 组件
 ---
 import { Playground, PropsTable } from 'docz'
 import { Component } from 'react'
 import { Fragment } from 'react'
 import { Input, Row, Col, Form, Button } from 'antd'
-import globalProgress from './GlobalProgress.jsx'
+import topProgress from './topProgress.jsx'
 
 # Copy
 
@@ -19,8 +19,8 @@ import globalProgress from './GlobalProgress.jsx'
 <Playground>
     <div style={{height: 50}}>
         <div style={{marginTop: 20}}>
-            <Button type="primary" onClick={() => {globalProgress.start();}}>开始</Button>
-            <Button type="primary" onClick={() => { globalProgress.done();}} style={{marginLeft: 20}}>完成</Button>
+            <Button type="primary" onClick={() => {topProgress.start();}}>开始</Button>
+            <Button type="primary" onClick={() => { topProgress.done();}} style={{marginLeft: 20}}>完成</Button>
         </div>
     </div>
 </Playground>
@@ -30,8 +30,8 @@ import globalProgress from './GlobalProgress.jsx'
 <Playground>
     <div style={{height: 50}}>
         <div style={{marginTop: 20}}>
-            <Button type="primary" onClick={() => {globalProgress.set(0.5);globalProgress.start();}}>开始</Button>
-            <Button type="primary" onClick={() => { globalProgress.done();}} style={{marginLeft: 20}}>完成</Button>
+            <Button type="primary" onClick={() => {topProgress.set(0.5);topProgress.start();}}>开始</Button>
+            <Button type="primary" onClick={() => { topProgress.done();}} style={{marginLeft: 20}}>完成</Button>
         </div>
     </div>
 </Playground>
@@ -47,4 +47,4 @@ import globalProgress from './GlobalProgress.jsx'
 + configure(options): 进度条配置 参数见下方
 + remove: 移除进度条元素
 
-<PropsTable of={globalProgress} />
+<PropsTable of={topProgress} />
