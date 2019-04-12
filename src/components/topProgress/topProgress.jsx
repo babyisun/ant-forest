@@ -3,13 +3,13 @@ import NProgress from 'nprogress';
 import t from 'prop-types';
 import './topProgress.scss';
 
-const globalProgress = ({ ...props }) => <Fragment />;
+const topProgress = ({ ...props }) => <Fragment />;
 
 Object.entries(NProgress).forEach(([key, value]) => {
-  globalProgress[key] = value;
+  topProgress[key] = value;
 });
 
-globalProgress.propTypes = {
+topProgress.propTypes = {
   /**
         进度条完成以后是否继续显示, true 为显示 false 为不显示
     */
@@ -48,7 +48,7 @@ globalProgress.propTypes = {
   'options.parent': t.string,
 };
 
-globalProgress.defaultProps = {
+topProgress.defaultProps = {
   status: false,
   'options.minimum': 0.08,
   'options.template':
