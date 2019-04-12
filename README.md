@@ -26,6 +26,6 @@ yarn add antd-forest
 
 * 主流浏览器与IE 10以上版本
 
-| IE / Edge | Firefox | Chrome | Safari |
-| - | - | - | - | - | - |
-| IE10+, Edge | last 2 versions | last 2 versions | last 2 versions |
+| IE / Edge | Firefox | Chrome | Safari
+| - | - | - | - | - | - 
+| IE10+, Edge | last 2 versions | last 2 versions | last 2 versions 
