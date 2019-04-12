@@ -53,4 +53,13 @@ export default {
         // },
     },
     sourcemaps: false,
+    // menu: [
+    //     '快速开始',
+    //     'Cascader 级联选择',
+    //     'CountInput 计数框',
+    //     'Filter 筛选器',
+    //     'Copy 一键复制',
+    //     'Category 分类卡片',
+    //     'Button 按钮',
+    //   ],
 };

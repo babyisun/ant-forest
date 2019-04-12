@@ -20,6 +20,7 @@ export default {
     },
     colors: {
         primary: Colors.Primary,
+        sidebarText: Colors.Text,
     },
     styles: {
         body: {
@@ -37,6 +38,17 @@ export default {
                     position: 'absolute',
                 },
             },
+            // '& .css-pccrlp > div:first-of-type a': {
+            //     '&::after':{
+            //         content: '\'Ant Forest\'',
+            //         color: Colors.Title,
+            //         fontSize: '2.5em',
+            //         fontWeight: 'bold',
+            //         padding: '0 8px',
+            //         marginTop: 6,
+            //         position: 'absolute',
+            //     },
+            // },
             '& .react-live > div:first-of-type': {
                 position: 'inherit',
             },
@@ -74,8 +86,16 @@ export default {
         h6: {
             fontSize: '0.5em',
         },
-        p: {
-            fontSize: '14px',
+        // p标记
+        paragraph: {
+            fontSize: '16px',
+            lineHeight: 1,
+        },
+        ul: {
+            fontSize: '16px',
+            '& li':{
+                lineHeight: 2,
+            }
         }
     },
 
