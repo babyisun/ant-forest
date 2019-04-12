@@ -12,6 +12,8 @@ class Address extends Component {
     super(props);
     this.textDiv = React.createRef();
     this.state = {
+      options: {},
+      names: {},
       activeKey: '1',
       spanKey: '',
       tabHide: false,
@@ -31,28 +33,36 @@ class Address extends Component {
       townValue: '',
       iconHide: false,
       propsValue: false,
+      radioDis: false,
     };
   }
 
   componentDidMount() {
-    const { defaultValue, value } = this.props;
+    const { defaultValue, value, fieldNames = {}, options = citys } = this.props;
     const uuidv1 = require('uuid/v1');
+    const names = {
+      children: fieldNames.children || 'children',
+      label: fieldNames.label || 'label',
+      value: fieldNames.value || 'value',
+    };
     let isAG = [];
     let isHK = [];
     let isLS = [];
     let isTZ = [];
-    citys.forEach((item) => {
+    options.forEach((item) => {
       if (item.initial >= 'A' && item.initial <= 'G') {
-        isAG.push({ value: item.value, label: item.label });
+        isAG.push({ value: item[names.value], label: item[names.label], disabled: item.disabled });
       } else if (item.initial >= 'H' && item.initial <= 'K') {
-        isHK.push({ value: item.value, label: item.label });
+        isHK.push({ value: item[names.value], label: item[names.label], disabled: item.disabled });
       } else if (item.initial >= 'L' && item.initial <= 'S') {
-        isLS.push({ value: item.value, label: item.label });
+        isLS.push({ value: item[names.value], label: item[names.label], disabled: item.disabled });
       } else {
-        isTZ.push({ value: item.value, label: item.label });
+        isTZ.push({ value: item[names.value], label: item[names.label], disabled: item.disabled });
       }
     });
     this.setState({
+      options,
+      names,
       provinceAG: isAG,
       provinceHK: isHK,
       provinceLS: isLS,
@@ -61,10 +71,10 @@ class Address extends Component {
     });
     document.addEventListener('click', this.globalFun);
     if (defaultValue && defaultValue.length) {
-      this.showDefaultValue(defaultValue);
+      this.showDefaultValue(defaultValue, names);
     }
     if (value && value.length) {
-      this.showDefaultValue(value);
+      this.showDefaultValue(value, names);
       this.setState({
         propsValue: true,
       });
@@ -73,8 +83,9 @@ class Address extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { value } = this.props;
+    const { names } = this.state;
     if (value && value.length && value !== nextProps.value) {
-      this.showDefaultValue(value);
+      this.showDefaultValue(value, names);
     }
   }
 
@@ -104,49 +115,94 @@ class Address extends Component {
   };
 
   changeRadioProvince = (e) => {
-    const city = citys.find((item) => item.value === e.target.value);
+    const { changeOnSelect } = this.props;
+    const { names, options } = this.state;
+    const city = this.selectAddress(options, e.target.value);
     this.setState({
       proValue: e.target.value,
       cityValue: '',
-      selectCity: city.children,
-      selectedAddress: city.label,
-      selectedAddressValue: [city.value],
-      selectedPro: city.label,
+      selectCity: city[names.children],
+      selectedPro: city[names.label],
       selectTown: [],
       activeKey: '2',
     });
+    if (changeOnSelect) {
+      this.setState({
+        selectedAddress: city[names.label],
+        selectedAddressValue: [city[names.value]],
+      });
+    }
   };
 
   changeRadioCity = (e) => {
-    const { selectCity, selectedPro, proValue } = this.state;
-    const town = selectCity.find((item) => item.value === e.target.value);
-    this.setState({
-      cityValue: e.target.value,
-      townValue: '',
-      selectTown: town.children,
-      selectedCity: town.label,
-      selectedAddress: `${selectedPro} / ${town.label}`,
-      selectedAddressValue: [proValue, town.value],
-      activeKey: '3',
-    });
+    const { changeOnSelect } = this.props;
+    const { selectCity, selectedPro, proValue, names } = this.state;
+    const town = this.selectAddress(selectCity, e.target.value);
+
+    if (town[names.children].length) {
+      this.setState({
+        cityValue: e.target.value,
+        townValue: '',
+        selectTown: town[names.children],
+        selectedCity: town[names.label],
+        radioDis: false,
+        activeKey: '3',
+      });
+    } else {
+      this.setState({
+        cityValue: e.target.value,
+        townValue: '',
+        selectedCity: town[names.label],
+        radioDis: true,
+        selectedAddress: `${selectedPro} / ${town[names.label]}`,
+        selectedAddressValue: [proValue, town[names.value]],
+        tabHide: false,
+      });
+    }
+    if (changeOnSelect) {
+      this.setState({
+        selectedAddress: `${selectedPro} / ${town[names.label]}`,
+        selectedAddressValue: [proValue, town[names.value]],
+      });
+    }
   };
 
   changeRadioTown = (e) => {
-    const { selectTown, selectedPro, selectedCity, proValue, cityValue } = this.state;
-    const selectedTown = selectTown.find((item) => item.value === e.target.value);
+    const { selectTown, selectedPro, selectedCity, proValue, cityValue, names } = this.state;
+    const selectedTown = this.selectAddress(selectTown, e.target.value);
     this.setState({
       townValue: e.target.value,
       selectedTown,
-      selectedAddress: `${selectedPro} / ${selectedCity} / ${selectedTown.label}`,
+      selectedAddress: `${selectedPro} / ${selectedCity} / ${selectedTown[names.label]}`,
       selectedAddressValue: [proValue, cityValue, e.target.value],
       tabHide: false,
     });
   };
 
   inputClick = () => {
-    const tabHide = !this.state.tabHide;
+    const { changeOnSelect } = this.props;
+    const { selectedAddressValue, names, tabHide } = this.state;
+    const toggleTabHide = !tabHide;
+    if (!changeOnSelect && toggleTabHide && selectedAddressValue.length) {
+      this.showDefaultValue(selectedAddressValue, names);
+    }
+    if (!changeOnSelect && !selectedAddressValue.length) {
+      this.setState({
+        activeKey: '1',
+        proValue: '',
+        cityValue: '',
+        townValue: '',
+        selectCity: [],
+        selectTown: [],
+      });
+    }
+    if (changeOnSelect && selectedAddressValue.length && selectedAddressValue.length < 3) {
+      this.setState({
+        activeKey: selectedAddressValue.length.toString(),
+      });
+    }
     this.setState({
-      tabHide,
+      tabHide: toggleTabHide,
     });
   };
 
@@ -191,43 +247,55 @@ class Address extends Component {
     }
   };
 
-  showDefaultValue = (defaultValue) => {
+  showDefaultValue = (defaultValue, names) => {
+    const { options = citys } = this.props;
     let province, city, town, selectedAddress;
     if (defaultValue.length < 4) {
-      province = citys.find((item) => item.value === defaultValue[0]);
+      province = this.selectAddress(options, defaultValue[0], names);
       if (province) {
-        selectedAddress = province.label;
+        selectedAddress = province[names.label];
         this.setState({
           selectedAddress,
-          selectedAddressValue: [province.value],
-          selectCity: province.children,
-          proValue: province.value,
-          selectedPro: province.label,
+          selectedAddressValue: [province[names.value]],
+          selectCity: province[names.children],
+          proValue: province[names.value],
+          selectedPro: province[names.label],
         });
-        city = province.children.find((item) => item.value === defaultValue[1]);
+        city = this.selectAddress(province[names.children], defaultValue[1], names);
         if (city) {
-          selectedAddress += ` / ${city.label}`;
+          selectedAddress += ` / ${city[names.label]}`;
           this.setState({
             selectedAddress,
-            selectedAddressValue: [province.value, city.value],
-            selectTown: city.children,
-            cityValue: city.value,
-            selectedCity: city.label,
+            selectedAddressValue: [province[names.value], city[names.value]],
+            selectTown: city[names.children],
+            cityValue: city[names.value],
+            selectedCity: city[names.label],
             activeKey: '2',
           });
-          town = city.children.find((item) => item.value === defaultValue[2]);
-          if (town) {
-            selectedAddress += ` / ${town.label}`;
+          if (city[names.children] && !city[names.children].length) {
             this.setState({
-              selectedAddress,
-              selectedAddressValue: [province.value, city.value, town.value],
-              townValue: town.value,
-              activeKey: '3',
+              radioDis: true,
             });
+          } else {
+            town = this.selectAddress(city[names.children], defaultValue[2], names);
+            if (town) {
+              selectedAddress += ` / ${town[names.label]}`;
+              this.setState({
+                selectedAddress,
+                selectedAddressValue: [province[names.value], city[names.value], town[names.value]],
+                townValue: town[names.value],
+                activeKey: '3',
+              });
+            }
           }
         }
       }
     }
+  };
+
+  selectAddress = (data, condition, n = this.state.names) => {
+    const selData = data.find((item) => item[n.value] === condition);
+    return selData;
   };
 
   render() {
@@ -247,6 +315,8 @@ class Address extends Component {
       iconHide,
       spanKey,
       propsValue,
+      radioDis,
+      names,
     } = this.state;
     const { placeholder, allowClear = true, className } = this.props;
     return (
@@ -259,7 +329,8 @@ class Address extends Component {
         >
           <Input
             id={spanKey}
-            className={'address-input' + className}
+            style={{ cursor: 'pointer' }}
+            className={className}
             onChange={this.changeInput}
             ref={this.textDiv}
             readOnly
@@ -290,34 +361,42 @@ class Address extends Component {
                   // onChange={this.changeRadioProvince}
                   value={proValue}
                 >
-                  <Card title="A-G" bordered={false}>
-                    {provinceAG &&
-                      provinceAG.length &&
-                      provinceAG.map((item) => {
-                        return <Radio.Button value={item.value}>{item.label}</Radio.Button>;
-                      })}
-                  </Card>
-                  <Card title="H-K" bordered={false}>
-                    {provinceHK &&
-                      provinceHK.length &&
-                      provinceHK.map((item) => {
-                        return <Radio.Button value={item.value}>{item.label}</Radio.Button>;
-                      })}
-                  </Card>
-                  <Card title="L-S" bordered={false}>
-                    {provinceLS &&
-                      provinceLS.length &&
-                      provinceLS.map((item) => {
-                        return <Radio.Button value={item.value}>{item.label}</Radio.Button>;
-                      })}
-                  </Card>
-                  <Card title="T-Z" bordered={false}>
-                    {provinceTZ &&
-                      provinceTZ.length &&
-                      provinceTZ.map((item) => {
-                        return <Radio.Button value={item.value}>{item.label}</Radio.Button>;
-                      })}
-                  </Card>
+                  {provinceAG && provinceAG.length ? (
+                    <Card title="A-G" bordered={false}>
+                      {provinceAG.map((item) => (
+                        <Radio.Button value={item.value} disabled={item.disabled}>
+                          {item.label}
+                        </Radio.Button>
+                      ))}
+                    </Card>
+                  ) : null}
+                  {provinceHK && provinceHK.length ? (
+                    <Card title="H-K" bordered={false}>
+                      {provinceHK.map((item) => (
+                        <Radio.Button value={item.value} disabled={item.disabled}>
+                          {item.label}
+                        </Radio.Button>
+                      ))}
+                    </Card>
+                  ) : null}
+                  {provinceLS && provinceLS.length ? (
+                    <Card title="L-S" bordered={false}>
+                      {provinceLS.map((item) => (
+                        <Radio.Button value={item.value} disabled={item.disabled}>
+                          {item.label}
+                        </Radio.Button>
+                      ))}
+                    </Card>
+                  ) : null}
+                  {provinceTZ && provinceTZ.length ? (
+                    <Card title="T-Z" bordered={false}>
+                      {provinceTZ.map((item) => (
+                        <Radio.Button value={item.value} disabled={item.disabled}>
+                          {item.label}
+                        </Radio.Button>
+                      ))}
+                    </Card>
+                  ) : null}
                 </RadioGroup>
               </div>
             </TabPane>
@@ -333,14 +412,16 @@ class Address extends Component {
                     // onChange={this.changeRadioCity}
                     value={cityValue}
                   >
-                    {selectCity.map((item) => {
-                      return <Radio.Button value={item.value}>{item.label}</Radio.Button>;
-                    })}
+                    {selectCity.map((item) => (
+                      <Radio.Button value={item[names.value]} disabled={item.disabled}>
+                        {item[names.label]}
+                      </Radio.Button>
+                    ))}
                   </RadioGroup>
                 ) : null}
               </div>
             </TabPane>
-            <TabPane tab="区县" key="3">
+            <TabPane tab="区县" key="3" disabled={radioDis}>
               <div
                 className="address-cityTown-container"
                 onFocusCapture={propsValue ? null : this.changeRadioTown}
@@ -352,9 +433,11 @@ class Address extends Component {
                     // onChange={this.changeRadioTown}
                     value={townValue}
                   >
-                    {selectTown.map((item) => {
-                      return <Radio.Button value={item.value}>{item.label}</Radio.Button>;
-                    })}
+                    {selectTown.map((item) => (
+                      <Radio.Button value={item[names.value]} disabled={item.disabled}>
+                        {item[names.label]}
+                      </Radio.Button>
+                    ))}
                   </RadioGroup>
                 ) : null}
               </div>
@@ -389,12 +472,29 @@ Address.propTypes = {
    * 自定义类名
    */
   className: t.string,
+  /**
+   * 当此项为 true 时，点选每级菜单选项值都会发生变化
+   */
+  changeOnSelect: t.bool,
+  /**
+   * 自定义 options 中 label name children 的字段
+   */
+  fieldNames: t.object,
+  /**
+   * 可选项数据源
+   */
+  options: t.array,
+  /**
+   * 禁用
+   */
+  disabled: t.bool,
 };
 
 Address.defaultProps = {
   placeholder: 'Please select',
   allowClear: true,
   defaultValue: [],
-  value: [],
-  className: '',
+  changeOnSelect: false,
+  fieldNames: { label: 'label', value: 'value', children: 'children' },
+  disabled: false,
 };
