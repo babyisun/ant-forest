@@ -1,5 +1,5 @@
 ---
-name: Address
+name: Cascader 级联选择
 menu: 组件
 ---
 
@@ -19,13 +19,26 @@ import Address from './address.jsx'
   <Address />
 </Playground>
 
-添加默认项与取消清除示例
+defaultValue与onChange示例
 
 <Playground>
-  <Address placeholder="请选择" allowClear={false} defaultValue={['210000','210200']}/>
+  {
+    () => {
+      function onChange(value) {
+        console.log(value);
+      }
+
+      return <Address onChange={onChange} defaultValue={['210000','210200']}/>
+    }
+  }
+</Playground>
+
+allowClear与value示例
+
+<Playground>
+  <Address allowClear={false} value={['210000','210200']}/>
 </Playground>
 
 ## API
 
 <PropsTable of={Address} />
-

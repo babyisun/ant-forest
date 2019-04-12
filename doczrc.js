@@ -6,8 +6,8 @@ import theme from './theme'
 
 export default {
     // src: './src',
-    dest: './doc',
-    //   base: '/ant-forest',
+    dest: './docs',
+    base: '/ant-forest',
     // public: './public',
     title: 'Ant Forest',
     description: 'A component library growing on ant-design.',
@@ -53,4 +53,13 @@ export default {
         // },
     },
     sourcemaps: false,
+    // menu: [
+    //     '快速开始',
+    //     'Cascader 级联选择',
+    //     'CountInput 计数框',
+    //     'Filter 筛选器',
+    //     'Copy 一键复制',
+    //     'Category 分类卡片',
+    //     'Button 按钮',
+    //   ],
 };

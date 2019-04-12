@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Anchor, Card, Button, Avatar, Icon } from 'antd';
+import { Anchor, Card, Button, Avatar, Icon, Carousel } from 'antd';
 import t from 'prop-types';
 import './Category.scss';
 
@@ -30,8 +30,12 @@ const character = [
   'Z',
 ];
 const arr = [];
+let resolvedArr;
 const someSort = (arr) => {
-  const segs = [];
+  const segs = [],
+    reg = /[abcdefghjklmnopqrstwxyz]/i;
+  // 如果是数字，分离出来，格式改为
+  const numArr = { title: '*', data: [] };
   const letters = 'abcdefghjklmnopqrstwxyz'.split('');
   letters.forEach((item, i) => {
     const curr = { title: item.toUpperCase(), data: [] };
@@ -45,9 +49,12 @@ const someSort = (arr) => {
       curr.data.sort((a, b) => a.name.localeCompare(b.name));
     }
   });
+  arr.forEach((item1, i1) => {
+    !reg.test(item1.name) && numArr.data.push(item1.data);
+  });
+  numArr.data.length > 0 && segs.push(numArr);
   return segs;
 };
-
 class Category extends Component {
   state = {
     currIndex: '',
@@ -58,6 +65,7 @@ class Category extends Component {
       const tmp = item.letter;
       arr.push({ name: tmp, data: item });
     });
+    resolvedArr = someSort(arr);
   }
 
   componentDidMount() {
@@ -124,14 +132,18 @@ class Category extends Component {
   render() {
     return (
       <Card bordered={false} id="card">
-        {someSort(arr).map((ele, i) => (
+        {resolvedArr.map((ele, i) => (
           <div key={i}>
             <span
               key={i}
               id={ele.title}
-              className={ele.title === this.state.currIndex ? 'active' : 'anchor-wrapper'}
+              className={
+                (ele.title === '*' ? '#' : ele.title) === this.state.currIndex
+                  ? 'active'
+                  : 'anchor-wrapper'
+              }
             >
-              {ele.title}
+              {ele.title === '*' ? '#' : ele.title}
             </span>
             <div className="wrapper">
               {ele.data.map((elem, index) => (
@@ -182,6 +194,7 @@ class Category extends Component {
               {character.map((ele, i) => (
                 <Link href={`#${ele}`} title={ele} className="anchor_link" key={i} />
               ))}
+              <Link href="#*" title="#" className="anchor_link" />
             </Anchor>
           }
         </div>
