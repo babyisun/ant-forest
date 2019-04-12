@@ -13,13 +13,7 @@ import Address from './address.jsx'
 
 ## 代码演示
 
-简单示例
-
-<Playground>
-  <Address />
-</Playground>
-
-defaultValue与onChange示例
+省市区级联
 
 <Playground>
   {
@@ -28,15 +22,102 @@ defaultValue与onChange示例
         console.log(value);
       }
 
-      return <Address onChange={onChange} defaultValue={['210000','210200']}/>
+      return <Address onChange={onChange} defaultValue={["620000", "620200"]}/>
     }
   }
 </Playground>
 
-allowClear与value示例
+选择即改变
 
 <Playground>
-  <Address allowClear={false} value={['210000','210200']}/>
+  {
+    () => {
+      function onChange(value) {
+        console.log(value);
+      }
+
+      return <Address onChange={onChange} changeOnSelect/>
+    }
+  }
+</Playground>
+
+设置默认值
+
+<Playground>
+  {
+    () => {
+      function onChange(value) {
+        console.log(value);
+      }
+
+      return <Address onChange={onChange} defaultValue={['210000','210200','210202']}/>
+    }
+  }
+</Playground>
+
+取消清除
+
+<Playground>
+  {
+    () => {
+      function onChange(value) {
+        console.log(value);
+      }
+
+      return <Address onChange={onChange} allowClear={false}/>
+    }
+  }
+</Playground>
+
+使用指定数据源并禁用某些地区
+
+<Playground>
+  {
+    () => {
+      function onChange(value) {
+        console.log(value);
+      }
+
+      const options = [
+        {
+          v: '110000',
+          l: '北京',
+          initial: 'B',
+          children: [
+            {
+              v: '110100',
+              l: '北京市',
+              children: [
+                { v: '110101', l: '东城区', disabled: true },
+                { v: '110102', l: '西城区' },
+                { v: '110105', l: '朝阳区' },
+              ],
+            },
+          ],
+        },
+        {
+          v: '120000',
+          l: '天津',
+          initial: 'T',
+          disabled: true,
+          children: [
+            {
+              v: '120100',
+              l: '天津市',
+              children: [
+                { v: '120101', l: '和平区' },
+                { v: '120102', l: '河东区' },
+                { v: '120103', l: '河西区' },
+                { v: '120104', l: '南开区' },
+              ],
+            },
+          ],
+        },
+      ]
+
+      return <Address onChange={onChange} options={options} fieldNames={{ value: 'v', label: 'l' }} defaultValue={["110000", "110100", "110102"]}/>
+    }
+  }
 </Playground>
 
 ## API
