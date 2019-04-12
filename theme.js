@@ -86,8 +86,16 @@ export default {
         h6: {
             fontSize: '0.5em',
         },
-        p: {
-            fontSize: '14px',
+        // p标记
+        paragraph: {
+            fontSize: '16px',
+            lineHeight: 1,
+        },
+        ul: {
+            fontSize: '16px',
+            '& li':{
+                lineHeight: 2,
+            }
         }
     },
 
