@@ -61,4 +61,4 @@ globalProgress.defaultProps = {
   'options.parent': 'body',
 };
 
-export default globalProgress;
+export default topProgress;
