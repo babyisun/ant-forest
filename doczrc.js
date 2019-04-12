@@ -53,9 +53,9 @@ export default {
         // },
     },
     sourcemaps: false,
-    // ignore: [
-    //     '**/topProgress.mdx',
-    // ],
+    ignore: [
+        '**/button.mdx',
+    ],
     // menu: [
     //     '快速开始',
     //     'Cascader 级联选择',

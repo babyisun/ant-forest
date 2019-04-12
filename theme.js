@@ -24,8 +24,18 @@ export default {
     },
     styles: {
         body: {
-            '& .css-pccrlp > div:last-child': {
+            '& .css-pccrlp' :{
+                '& > div:last-child': {
                 display: 'none',
+                },
+                '& nav':{
+                    '& a, & dl > dt a': {
+                    fontSize: '1.1em',
+                    },
+                    // '& dl > dt a': {
+                    //     fontSize: '1.1em',
+                    // },
+                },   
             },
             '& .css-pccrlp > div:first-of-type a': {
                 '&::after':{
