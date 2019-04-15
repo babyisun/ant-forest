@@ -1,0 +1,56 @@
+---
+name: TopProgress 顶部进度条
+menu: 组件
+---
+import { Playground, PropsTable } from 'docz'
+import { Component } from 'react'
+import { Fragment } from 'react'
+import { Input, Row, Col, Form, Button } from 'antd'
+import topProgress from './TopProgress.jsx'
+
+# TopProgress
+
+顶部进度条。
+
+## 代码演示
+
+简单示例
+
+<Playground>
+    {/* 
+    提前引入 import topProgress from './TopProgress.jsx'
+     */}
+    <div style={{height: 50}}>
+        <div style={{marginTop: 20}}>
+            <Button type="primary" onClick={() => {topProgress.start();}}>开始</Button>
+            <Button type="primary" onClick={() => { topProgress.done();}} style={{marginLeft: 20}}>完成</Button>
+        </div>
+    </div>
+</Playground>
+
+设置初始进度
+
+<Playground>
+    {/* 
+    提前引入 import topProgress from './TopProgress.jsx'
+     */}
+    <div style={{height: 50}}>
+        <div style={{marginTop: 20}}>
+            <Button type="primary" onClick={() => {topProgress.set(0.5);topProgress.start();}}>开始</Button>
+            <Button type="primary" onClick={() => { topProgress.done();}} style={{marginLeft: 20}}>完成</Button>
+        </div>
+    </div>
+</Playground>
+
+
+## API
+
+### 静态方法：
++ start: 开启进度条
++ done(status): 进度条完成
++ inc: 随机增加进度, 但是不会增加到 100%
++ set: 进度条进度, (0 - 1)
++ configure(options): 进度条配置 参数见下方
++ remove: 移除进度条元素
+
+<PropsTable of={topProgress} />
