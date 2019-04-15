@@ -27,8 +27,7 @@ const someSort = (arr1) => {
       }
     }
   });
-  character = Object.keys(list);
-  character = character.sort(function(s, t) {
+  character = Object.keys(list).sort(function(s, t) {
     if (s < t) return -1;
     if (s > t) return 1;
     return 0;
