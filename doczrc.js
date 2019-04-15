@@ -53,6 +53,9 @@ export default {
         // },
     },
     sourcemaps: false,
+    ignore: [
+        '**/button.mdx',
+    ],
     // menu: [
     //     '快速开始',
     //     'Cascader 级联选择',
