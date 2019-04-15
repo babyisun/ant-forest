@@ -364,7 +364,7 @@ class Address extends Component {
                   {provinceAG && provinceAG.length ? (
                     <Card title="A-G" bordered={false}>
                       {provinceAG.map((item) => (
-                        <Radio.Button value={item.value} disabled={item.disabled}>
+                        <Radio.Button value={item.value} disabled={item.disabled} key={item.value}>
                           {item.label}
                         </Radio.Button>
                       ))}
@@ -373,7 +373,7 @@ class Address extends Component {
                   {provinceHK && provinceHK.length ? (
                     <Card title="H-K" bordered={false}>
                       {provinceHK.map((item) => (
-                        <Radio.Button value={item.value} disabled={item.disabled}>
+                        <Radio.Button value={item.value} disabled={item.disabled} key={item.value}>
                           {item.label}
                         </Radio.Button>
                       ))}
@@ -382,7 +382,7 @@ class Address extends Component {
                   {provinceLS && provinceLS.length ? (
                     <Card title="L-S" bordered={false}>
                       {provinceLS.map((item) => (
-                        <Radio.Button value={item.value} disabled={item.disabled}>
+                        <Radio.Button value={item.value} disabled={item.disabled} key={item.value}>
                           {item.label}
                         </Radio.Button>
                       ))}
@@ -391,7 +391,7 @@ class Address extends Component {
                   {provinceTZ && provinceTZ.length ? (
                     <Card title="T-Z" bordered={false}>
                       {provinceTZ.map((item) => (
-                        <Radio.Button value={item.value} disabled={item.disabled}>
+                        <Radio.Button value={item.value} disabled={item.disabled} key={item.value}>
                           {item.label}
                         </Radio.Button>
                       ))}
@@ -413,7 +413,11 @@ class Address extends Component {
                     value={cityValue}
                   >
                     {selectCity.map((item) => (
-                      <Radio.Button value={item[names.value]} disabled={item.disabled}>
+                      <Radio.Button
+                        value={item[names.value]}
+                        disabled={item.disabled}
+                        key={item[names.value]}
+                      >
                         {item[names.label]}
                       </Radio.Button>
                     ))}
@@ -434,7 +438,11 @@ class Address extends Component {
                     value={townValue}
                   >
                     {selectTown.map((item) => (
-                      <Radio.Button value={item[names.value]} disabled={item.disabled}>
+                      <Radio.Button
+                        value={item[names.value]}
+                        disabled={item.disabled}
+                        key={item[names.value]}
+                      >
                         {item[names.label]}
                       </Radio.Button>
                     ))}
