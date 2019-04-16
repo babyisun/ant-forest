@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Tabs, Radio, Card, Input, Icon } from 'antd';
 import citys from './city';
 import t from 'prop-types';
-import './address.scss';
+import './Cascader.scss';
 
 const TabPane = Tabs.TabPane;
 const RadioGroup = Radio.Group;
 
-class Address extends Component {
+class Cascader extends Component {
   constructor(props) {
     super(props);
     this.textDiv = React.createRef();
@@ -457,9 +457,9 @@ class Address extends Component {
   }
 }
 
-export default Address;
+export default Cascader;
 
-Address.propTypes = {
+Cascader.propTypes = {
   /**
    * 输入框占位文本
    */
@@ -498,10 +498,8 @@ Address.propTypes = {
   disabled: t.bool,
 };
 
-Address.defaultProps = {
-  placeholder: 'Please select',
+Cascader.defaultProps = {
   allowClear: true,
-  defaultValue: [],
   changeOnSelect: false,
   fieldNames: { label: 'label', value: 'value', children: 'children' },
   disabled: false,

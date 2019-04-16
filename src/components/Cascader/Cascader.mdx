@@ -5,27 +5,19 @@ route: /Cascader
 ---
 
 import { Playground, PropsTable } from 'docz'
-import Address from './address.jsx'
+import Cascader from './Cascader.jsx'
 
 
-# Address
+# Cascader
 
-省市县级联选择
+多级联动选择
 
 ## 代码演示
 
 省市区级联
 
 <Playground>
-  {
-    () => {
-      function onChange(value) {
-        console.log(value);
-      }
-
-      return <Address onChange={onChange} defaultValue={["620000", "620200"]}/>
-    }
-  }
+  <Cascader defaultValue={["620000", "620200"]}/>
 </Playground>
 
 选择即改变
@@ -36,8 +28,7 @@ import Address from './address.jsx'
       function onChange(value) {
         console.log(value);
       }
-
-      return <Address onChange={onChange} changeOnSelect/>
+      return <Cascader onChange={onChange} changeOnSelect/>
     }
   }
 </Playground>
@@ -51,7 +42,7 @@ import Address from './address.jsx'
         console.log(value);
       }
 
-      return <Address onChange={onChange} defaultValue={['210000','210200','210202']}/>
+      return <Cascader onChange={onChange} defaultValue={['210000','210200','210202']}/>
     }
   }
 </Playground>
@@ -59,15 +50,7 @@ import Address from './address.jsx'
 取消清除
 
 <Playground>
-  {
-    () => {
-      function onChange(value) {
-        console.log(value);
-      }
-
-      return <Address onChange={onChange} allowClear={false}/>
-    }
-  }
+  <Cascader allowClear={false}/>
 </Playground>
 
 使用指定数据源并禁用某些地区
@@ -116,11 +99,11 @@ import Address from './address.jsx'
         },
       ]
 
-      return <Address onChange={onChange} options={options} fieldNames={{ value: 'v', label: 'l' }} defaultValue={["110000", "110100", "110102"]}/>
+      return <Cascader onChange={onChange} options={options} fieldNames={{ value: 'v', label: 'l' }} defaultValue={["110000", "110100", "110102"]}/>
     }
   }
 </Playground>
 
 ## API
 
-<PropsTable of={Address} />
+<PropsTable of={Cascader} />
