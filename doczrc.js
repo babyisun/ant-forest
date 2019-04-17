@@ -55,7 +55,6 @@ export default {
     sourcemaps: false,
     ignore: [
         '**/button.mdx',
-        '**/category.mdx',
     ],
     menu: [
         '快速开始',
@@ -63,7 +62,7 @@ export default {
         'CountInput 计数框',
         'Filter 筛选器',
         'Copy 一键复制',
-        // 'Category 分类卡片',
+        'Category 分类卡片',
         'TopProgress 进度条',
       ],
 };

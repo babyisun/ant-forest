@@ -4,75 +4,32 @@ import t from 'prop-types';
 import './Category.scss';
 
 const { Link } = Anchor;
-let originArr;
-
-let character = [],
-  list = {};
-const someSort = (arr1) => {
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  originArr.forEach((item, i) => {
-    if (letters.includes(item.letter)) {
-      if (list[item.letter]) {
-        list[item.letter].push(item);
-      } else {
-        list[item.letter] = [];
-        list[item.letter].push(item);
-      }
+let originArr,
+  character = [];
+// scroll防抖函数
+const throttle = (fn, delay) => {
+  let last = 0,
+    timer = null;
+  return function() {
+    const context = this;
+    const args = arguments;
+    const now = +new Date();
+    if (now - last < delay) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        last = now;
+        fn.apply(context, args);
+      }, delay);
     } else {
-      if (list['*']) {
-        list['*'].push(item);
-      } else {
-        list['*'] = [];
-        list['*'].push(item);
-      }
+      last = now;
+      fn.apply(context, args);
     }
-  });
-  character = Object.keys(list).sort(function(s, t) {
-    if (s < t) return -1;
-    if (s > t) return 1;
-    return 0;
-  });
-  if (character.includes('*')) {
-    character.splice(0, 1);
-    character.push('*');
-  }
-  return list;
+  };
 };
-
-let resolvedArr;
 class Category extends Component {
   state = {
     currIndex: '',
   };
-
-  componentWillMount() {
-    originArr = this.props.originArr;
-    resolvedArr = someSort(originArr);
-  }
-
-  componentDidMount() {
-    const better_scroll = this.throttle(this.addActive, 100);
-    if (this.props.container === window) {
-      window.addEventListener('scroll', better_scroll, false);
-    } else {
-      const live = document.getElementById(this.props.container);
-      live.style.height = '588px';
-      live.style.overflow = 'scroll';
-      live.addEventListener('scroll', better_scroll, false);
-    }
-  }
-
-  componentWillUnmount() {
-    const better_scroll = this.throttle(this.addActive, 100);
-    if (this.props.container === window) {
-      window.removeEventListener('scroll', better_scroll, false);
-    } else {
-      const live = document.getElementById(this.props.container);
-      live.style.height = '588px';
-      live.style.overflow = 'scroll';
-      live.removeEventListener('scroll', better_scroll, false);
-    }
-  }
 
   handleClick = (e, link) => {
     e.preventDefault();
@@ -80,7 +37,6 @@ class Category extends Component {
       currIndex: link.title,
     });
   };
-
   addActive = () => {
     const activeId =
       document.getElementsByClassName('ant-anchor-link-active')[0] &&
@@ -89,27 +45,44 @@ class Category extends Component {
       currIndex: activeId,
     });
   };
-
-  // scroll防抖函数
-  throttle = (fn, delay) => {
-    let last = 0,
-      timer = null;
-    return function() {
-      const context = this;
-      const args = arguments;
-      const now = +new Date();
-      if (now - last < delay) {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          last = now;
-          fn.apply(context, args);
-        }, delay);
-      } else {
-        last = now;
-        fn.apply(context, args);
-      }
-    };
+  addScroll = () => {
+    if (this.props.container === 'body') {
+      const live = document.getElementsByTagName('body')[0];
+      console.log(live);
+      live.addEventListener('scroll', this.better_scroll, false);
+    } else {
+      const live = document.getElementById(this.props.container);
+      live.style.height = '588px';
+      live.style.overflow = 'scroll';
+      live.addEventListener('scroll', this.better_scroll, false);
+    }
   };
+  removeScroll = () => {
+    if (this.props.container === 'body') {
+      const live = document.getElementsByTagName('body')[0];
+      live.removeEventListener('scroll', this.better_scroll, false);
+    } else {
+      const live = document.getElementById(this.props.container);
+      live.style.height = '588px';
+      live.style.overflow = 'scroll';
+      live.removeEventListener('scroll', this.better_scroll, false);
+    }
+  };
+
+  better_scroll = throttle(this.addActive, 100);
+
+  componentWillMount() {
+    originArr = this.props.originArr;
+    character = Object.keys(originArr);
+  }
+
+  componentDidMount() {
+    this.addScroll();
+  }
+
+  componentWillUnmount() {
+    this.removeScroll();
+  }
 
   render() {
     return (
@@ -124,7 +97,7 @@ class Category extends Component {
               {ele}
             </span>
             <div className="wrapper">
-              {resolvedArr[ele].map((elem, index) => (
+              {originArr[ele].map((elem, index) => (
                 <div className="item" key={index}>
                   <div className="avatar">
                     <Avatar size={45} icon="user" />
