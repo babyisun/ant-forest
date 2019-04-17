@@ -137,7 +137,7 @@ Copy.propTypes = {
     */
   label: t.string,
   /**
-        复制成功图标配置
+        复制成功图标配置, API 同 antd Icon 组件, eg: { type: 'copy', theme: 'outlined', spin: false... }
     */
   tipsIcon: t.object,
   /**
