@@ -4,8 +4,10 @@ route: /Filter
 # menu: 组件
 ---
 
+import { Component } from 'react';
 import { Playground, PropsTable } from 'docz'
 import Filter from './Filter.jsx'
+import { Form, Button } from 'antd';
 
 
 # Filter
@@ -23,21 +25,97 @@ Filter组件帮助你更好的进行条件筛选，摒弃select需要下拉选�
     />
 </Playground>
 
+带有默认值的单项筛选
+<Playground>
+    <Filter options={[
+        { label: '分类1', value: '1' }, 
+        { label: '分类2', value: '2' },
+        { label: '分类3', value: '3' }]}
+        defaultValue={'3'}
+     />
+</Playground>
+
 带有默认值的多项筛选
 <Playground>
     <Filter options={[
         { label: '分类1', value: '1' }, 
         { label: '分类2', value: '2' },
         { label: '分类3', value: '3' }]}
+        defaultValue={['1', '2', '3']}
+        multiple
+     />
+</Playground>
+
+单选屏蔽全部按钮
+
+<Playground>
+    <Filter options={[
+        { label: '分类1', value: '1' }, 
+        { label: '分类2', value: '2' },
+        { label: '分类3', value: '3' }]}
+        disabledAll
+        defaultValue={'2'}
+     />
+</Playground>
+
+多选屏蔽全部按钮
+
+<Playground>
+    <Filter options={[
+        { label: '分类1', value: '1' }, 
+        { label: '分类2', value: '2' },
+        { label: '分类3', value: '3' }]}
+        disabledAll
         defaultValue={['1', '2']}
         multiple
      />
 </Playground>
 
-数据格式为对象的多选模式
+在Ant-Design表单中使用
 
 <Playground>
-    
+    {
+    () => {
+      class Container extends Component {
+        onSubmit(e){
+            e.preventDefault();
+            const { form: { validateFields } } = this.props;
+            validateFields((err, values) => {
+                if (!err) {
+                    console.log('onSubmit:', values);
+                }
+            });
+        };
+
+        render() {
+          const { form } = this.props;
+          return (
+            <Form onSubmit={e => this.onSubmit(e)}>
+              <Form.Item label="表单示例">
+                {
+                form.getFieldDecorator('filterValues', {
+                  initialValue: ['2'],
+                })(<Filter options={[
+                    { label: '分类1', value: '1' }, 
+                    { label: '分类2', value: '2' },
+                    { label: '分类3', value: '3' }]}
+                    multiple
+                    onChange={(value, options)=>console.log('onChange：', value)}
+                     />)
+                }
+              </Form.Item>
+              <Button htmlType="submit" icon="search" label="&nbsp;">
+                    搜索
+              </Button>
+            </Form>
+          );
+        }
+      }
+
+      const FormDemo = Form.create()(Container);
+      return <FormDemo/>
+    }
+  }
 </Playground>
 
 
