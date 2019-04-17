@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Radio, Checkbox } from 'antd';
 import t from 'prop-types';
-import './filter.scss';
+import './Filter.scss';
 
 class Filter extends Component {
   state = {
