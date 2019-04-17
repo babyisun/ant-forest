@@ -34,6 +34,7 @@ class CountInput extends Component {
       contentPaddingW: this.computePaddingW(this.counts),
       contentPaddingH: this.computePaddingH(this.counts),
       _value: this.props.value,
+      currentCounts: this.props.value ? this.props.value.length : 0,
     });
   }
 
@@ -41,6 +42,7 @@ class CountInput extends Component {
     if (nextProps && JSON.stringify(nextProps) !== JSON.stringify(this.props)) {
       this.setState({
         _value: nextProps.value,
+        currentCounts: nextProps.value ? nextProps.value.length : 0,
       });
     }
   }
