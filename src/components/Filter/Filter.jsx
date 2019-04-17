@@ -7,11 +7,21 @@ const { Group: RG, Button: RB } = Radio;
 const { Group: CG } = Checkbox;
 
 class Filter extends Component {
+  constructor(props) {
+    super(props);
+    const { defaultValue, options } = props;
+    this.state = {
+      checkedList: defaultValue,
+      // indeterminate: !(options.length === defaultValue.length),
+      checkAll: defaultValue ? options.length === defaultValue.length : true, //默认选中全部
+    };
+  }
+
   static propTypes = {
     /**
      * 数据格式 [{ lable: '分类1', value: '1' }]
      */
-    options: t.object.isRequired,
+    options: t.array.isRequired,
     /**
      * 设置单选或多选状态, 默认为false, 即单选
      */
@@ -35,44 +45,38 @@ class Filter extends Component {
     disabledAll: false,
   };
 
-  state = () => {
+  /* state = () => {
     const { defaultValue, options } = this.props;
     return {
       checkedList: defaultValue,
       // indeterminate: !(options.length === defaultValue.length),
       checkAll: defaultValue ? options.length === defaultValue.length : true, //默认选中全部
     };
-  };
+  }; */
 
   onCheckAllChange = (e) => {
+    const { options } = this.props;
+    const { checkedList } = this.state;
     this.setState(
       {
-        checkedList: e.target.checked
-          ? Object.prototype.toString.call(this.props.list) === '[object Object]'
-            ? Object.entries(this.props.list).map(([k, v]) => v)
-            : this.props.list
-          : [],
+        checkedList: e.target.checked ? options.map((item) => item.value) : [],
         indeterminate: false,
         checkAll: e.target.checked,
       },
-      () => {
-        this.triggerChange(this.state.checkedList);
-      },
+      () => this.triggerChange(checkedList),
     );
   };
 
   onChange = (checkedList) => {
     const { options } = this.props;
-    this.setState({
-      checkedList,
-      // indeterminate:
-      //   Object.prototype.toString.call(this.props.list) === '[object Object]'
-      //     ? !!checkedList.length &&
-      //       checkedList.length < Object.getOwnPropertyNames(this.props.list).length
-      //     : !!checkedList.length && checkedList.length < this.props.list.length,
-      checkAll: checkedList.length === options.length,
-    });
-    this.triggerChange(checkedList);
+    this.setState(
+      {
+        checkedList,
+        indeterminate: !!checkedList.length && checkedList.length < options.length,
+        checkAll: checkedList.length === options.length,
+      },
+      () => this.triggerChange(checkedList),
+    );
   };
 
   triggerChange = (changedValue) => {
@@ -83,27 +87,27 @@ class Filter extends Component {
   };
 
   render() {
-    const { checkAll } = this.state;
-    const { options } = this.props;
+    const { checkAll, checkedList, indeterminate } = this.state;
+    const { multiple, options } = this.props;
     return (
       <div className={style.filter}>
-        {this.props.multiple ? (
+        {multiple ? (
           <>
             <Checkbox
-              indeterminate={this.state.indeterminate}
+              indeterminate={indeterminate}
               onChange={this.onCheckAllChange}
               checked={checkAll}
             >
               全部
             </Checkbox>
-            <CG options={options} onChange={this.onChange} value={this.state.checkedList} />
+            <CG options={options} onChange={this.onChange} value={checkedList} />
           </>
         ) : (
-          <RG onChange={this.onChange} className="radioGroup">
-            <RB className="radioButton">全部</RB>
-            {Object.entries(this.props.list).map(([k, v]) => (
-              <RB key={k} value={+k} className="radioButton">
-                {v}
+          <RG onChange={this.onChange}>
+            <RB>全部</RB>
+            {options.map((item, i) => (
+              <RB key={item.value} value={item.value}>
+                {item.label}
               </RB>
             ))}
           </RG>
