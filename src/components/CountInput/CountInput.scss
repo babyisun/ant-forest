@@ -2,32 +2,33 @@
 .countInput {
   position: relative;
   line-height: normal;
-}
+  :global {
+    .counts {
+      color: #bfbfbf;
+      font-size: 14px;
+      line-height: normal;
+    }
 
-.counts {
-  color: #bfbfbf;
-  font-size: 14px;
-  line-height: normal;
-}
+    .textareaContainer {
+      position: relative;
+    }
 
-.textareaContainer {
-  position: relative;
-}
+    .textareael {
+      margin-bottom: 0 !important;
+      box-sizing: border-box;
+    }
 
-.textareael {
-  margin-bottom: 0 !important;
-  box-sizing: border-box;
-}
+    .input {
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+      line-height: 32px;
+    }
 
-.input {
-  position: absolute;
-  right: 10px;
-  bottom: 0;
-  line-height: 32px;
-}
-
-.textarea {
-  position: absolute;
-  right: 10px;
-  bottom: 5px;
+    .textarea {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+    }
+  }
 }

@@ -3,9 +3,38 @@ import { Button, Icon, Input } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QueueAnim from 'rc-queue-anim';
 import t from 'prop-types';
-import './Copy.scss';
+import styles from './Copy.scss';
 
 class Copy extends Component {
+  static propTypes = {
+    /**
+          需要复制到粘贴板的数据
+      */
+    value: t.string,
+    /**
+          复制按钮类型 text | icon 
+      */
+    type: t.oneOf(['text', 'icon']),
+    /**
+          复制按钮文案
+      */
+    label: t.string,
+    /**
+          复制成功图标配置, API 同 antd Icon 组件, eg: { type: 'copy', theme: 'outlined', spin: false... }
+      */
+    tipsIcon: t.object,
+    /**
+          与 Input 绑定, 支持 antd form 包裹
+      */
+    withInput: t.bool,
+  };
+
+  static defaultProps = {
+    withInput: false,
+    type: 'text',
+    label: '复制到粘贴板',
+  };
+
   state = {
     copied: false,
     preCombatant: false,
@@ -62,24 +91,44 @@ class Copy extends Component {
     return type === 'text' ? <span>{label}</span> : <Icon className="iconSize" type="copy" />;
   };
 
+  computedClassNames = () => {
+    let className = '';
+    const { withInput, type } = this.props;
+    if (type === 'text') {
+      className += 'minWidth ';
+    }
+    if (!this.computedIsInput()) {
+      if (type === 'text') {
+        className += 'disabled ';
+      } else {
+        className += 'disabled notBgc ';
+      }
+    }
+    if (withInput) {
+      className += 'inputCopyBtn';
+    }
+    return className.replace(/\s*$/g, '');
+  };
+
+  computedIsInput = () => {
+    const { text, withInput } = this.props;
+    const { inputValue } = this.state;
+    if (withInput) {
+      return !!inputValue;
+    } else {
+      return !!text;
+    }
+  };
+
   renderCopy = () => {
-    const { label, text, type, withInput, children, tipsIcon = {}, ...args } = this.props;
+    const { label, type, text, withInput, children, tipsIcon = {}, ...args } = this.props;
     const { copied, inputValue } = this.state;
 
-    const computedIsInput = () => {
-      if (withInput) {
-        return !!inputValue;
-      } else {
-        return !!text;
-      }
-    };
     return (
       <CopyToClipboard text={withInput ? inputValue : text} onCopy={this.onCopy} {...args}>
         <button
-          disabled={!computedIsInput()}
-          className={`copyBtn ${type === 'text' ? 'minWidth' : null} ${
-            !computedIsInput() ? 'disabled' : ''
-          } ${withInput ? 'inputCopyBtn' : null}`}
+          disabled={!this.computedIsInput()}
+          className={`copyBtn ${this.computedClassNames()}`}
           size="small"
         >
           <QueueAnim component="div" type={['top', 'bottom']} onEnd={this.handleCombatant}>
@@ -117,37 +166,12 @@ class Copy extends Component {
 
   render() {
     const { withInput } = this.props;
-    return withInput ? this.renderInputCopy() : this.renderCopy();
+    return (
+      <div className={styles.container}>
+        {withInput ? this.renderInputCopy() : this.renderCopy()}
+      </div>
+    );
   }
 }
 
 export default Copy;
-
-Copy.propTypes = {
-  /**
-        需要复制到粘贴板的数据
-    */
-  value: t.string,
-  /**
-        复制按钮类型 text | icon 
-    */
-  type: t.oneOf(['text', 'icon']),
-  /**
-        复制按钮文案
-    */
-  label: t.string,
-  /**
-        复制成功图标配置, API 同 antd Icon 组件, eg: { type: 'copy', theme: 'outlined', spin: false... }
-    */
-  tipsIcon: t.object,
-  /**
-        与 Input 绑定, 支持 antd form 包裹
-    */
-  withInput: t.bool,
-};
-
-Copy.defaultProps = {
-  withInput: false,
-  type: 'text',
-  label: '复制到粘贴板',
-};

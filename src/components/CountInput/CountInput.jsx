@@ -1,11 +1,27 @@
 import React, { Component, Fragment } from 'react';
 import { Input } from 'antd';
 import t from 'prop-types';
-import './CountInput.scss';
+import styles from './CountInput.scss';
 
 const { TextArea } = Input;
 
 class CountInput extends Component {
+  static propTypes = {
+    /**
+      输入数量限制
+    */
+    count: t.number,
+    /**
+      带计数器输入框的类型
+    */
+    type: t.oneOf(['input', 'textarea']),
+  };
+
+  static defaultProps = {
+    count: 20,
+    type: 'input',
+  };
+
   state = {
     currentCounts: 0,
     _value: '',
@@ -102,7 +118,7 @@ class CountInput extends Component {
   render() {
     const { type } = this.props;
     return (
-      <div className="countInput">
+      <div className={styles.countInput}>
         {type === 'input' ? this.createInput() : this.createTextarea()}
       </div>
     );
@@ -110,19 +126,3 @@ class CountInput extends Component {
 }
 
 export default CountInput;
-
-CountInput.propTypes = {
-  /**
-    输入数量限制
-  */
-  count: t.number,
-  /**
-    带计数器输入框的类型
-  */
-  type: t.oneOf(['input', 'textarea']),
-};
-
-CountInput.defaultProps = {
-  count: 20,
-  type: 'input',
-};
