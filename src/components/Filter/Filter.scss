@@ -2,23 +2,31 @@
 
 .filter {
   :global {
+    // .ant-radio-button-wrapper {
+    //   color: $Text;
+    // }
+
+    // .radioGroup {
+    // border: none;
+
+    // .radioButton {
+    //   border-radius: 5px;
+    //   height: $Filter-ButtonHeight;
+    //   // border: none;
+    // }
+    // }
+
+    // .ant-radio-button-wrapper::before {
+    //   content: '';
+    //   width: 0;
+    //   display: none !important;
+    // }
+
     .ant-radio-button-wrapper {
-      color: $Text;
-    }
-
-    .radioGroup {
-      border: none;
-
-      .radioButton {
-        height: 29px;
-        border: none;
-      }
-    }
-
-    .ant-radio-button-wrapper::before {
-      content: '';
-      width: 0;
-      display: none !important;
+      // border-radius: 5px;
+      padding: 0 8px;
+      height: $Filter-ButtonHeight;
+      line-height: $Filter-ButtonHeight;
     }
 
     .ant-radio-button-wrapper-checked {
@@ -27,43 +35,45 @@
       box-shadow: none;
     }
 
-    .ant-radio-button-wrapper-checked:hover {
-      background: $Primary;
-      color: white;
-      box-shadow: none;
-    }
+    // .ant-radio-button-wrapper-checked:hover {
+    //   background: $Primary;
+    //   color: white;
+    //   box-shadow: none;
+    // }
 
     .ant-checkbox-group {
       margin-left: 8px;
     }
 
     .ant-checkbox-wrapper {
-      width: 58px;
-      height: 29px;
-      display: inline-block;
-      background: #fff;
+      // width: 58px;
+      padding: 0 8px;
+      height: $Filter-ButtonHeight;
+      // display: inline-block;
+      // background: #fff;
+      font-size: 13px;
       border-radius: 2px;
       transition: color 0.3s, background 0.3s, border-color 0.3s;
 
       .ant-checkbox {
-        margin-left: 0;
-        display: block;
-        width: 0;
-        height: 0;
+        // margin-left: 0;
+        display: none;
+        // width: 0;
+        // height: 0;
 
-        input[type='checkbox'] {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
+        // input[type='checkbox'] {
+        //   opacity: 0;
+        //   width: 0;
+        //   height: 0;
+        // }
 
-        .ant-checkbox-inner {
-          display: none;
-        }
+        // .ant-checkbox-inner {
+        //   display: none;
+        // }
       }
 
       span {
-        line-height: 29px;
+        line-height: $Filter-ButtonHeight;
         display: block;
         text-align: center;
       }
