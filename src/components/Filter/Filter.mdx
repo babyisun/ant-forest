@@ -10,24 +10,28 @@ import Filter from './Filter.jsx'
 
 # Filter
 
-Filter组件帮助你更好地配合图表等进行条件筛选，有多选和单选两种模式，同时组建内展示的数据格式支持数组和对象。
+Filter组件帮助你更好的进行条件筛选，摒弃select需要下拉选择的繁琐，让筛选项拥有即视感，支持单选和多选两种模式。
 
 ## 代码演示
 
 简单示例
 <Playground>
-    <Filter list={['01','02']} defaultList={'-1'} />
+    <Filter options={[
+        { lable: '分类1', value: '1' }, 
+        { lable: '分类2', value: '2' },
+        { lable: '分类3', value: '3' }
+    ]} />
 </Playground>
 
 数据格式为数组的多选模式
 <Playground>
-    <Filter list={['01','02']} defaultList={['01', '02']} multiple/>
+    <Filter options={['01','02']} defaultValue={['01', '02']} multiple/>
 </Playground>
 
 数据格式为对象的多选模式
 
 <Playground>
-    <Filter list={{1:'01',2:'02',3:'03'}} defaultList={['01', '02','03']} multiple/>
+    <Filter options={{1:'01',2:'02',3:'03'}} defaultValue={['01', '02','03']} multiple/>
 </Playground>
 
 

@@ -29,7 +29,7 @@ export default {
         }),
         css({
             preprocessor: 'sass',
-            //   cssmodules: true,
+            cssmodules: true,
         }),
     ],
     modifyBabelRc: (babelrc) => {
