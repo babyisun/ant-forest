@@ -4,68 +4,50 @@ import t from 'prop-types';
 import './Category.scss';
 
 const { Link } = Anchor;
-const character = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'W',
-  'X',
-  'Y',
-  'Z',
-];
-const arr = [];
-let resolvedArr;
-const someSort = (arr) => {
-  const segs = [],
-    reg = /[abcdefghjklmnopqrstwxyz]/i;
-  // 如果是数字，分离出来，格式改为
-  const numArr = { title: '*', data: [] };
-  const letters = 'abcdefghjklmnopqrstwxyz'.split('');
-  letters.forEach((item, i) => {
-    const curr = { title: item.toUpperCase(), data: [] };
-    arr.forEach((item1, i1) => {
-      if (item === item1.name) {
-        curr.data.push(item1.data);
+let originArr;
+
+let character = [],
+  list = {};
+const someSort = (arr1) => {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  originArr.forEach((item, i) => {
+    if (letters.includes(item.letter)) {
+      if (list[item.letter]) {
+        list[item.letter].push(item);
+      } else {
+        list[item.letter] = [];
+        list[item.letter].push(item);
       }
-    });
-    if (curr.data.length > 0) {
-      segs.push(curr);
-      curr.data.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      if (list['*']) {
+        list['*'].push(item);
+      } else {
+        list['*'] = [];
+        list['*'].push(item);
+      }
     }
   });
-  arr.forEach((item1, i1) => {
-    !reg.test(item1.name) && numArr.data.push(item1.data);
+  character = Object.keys(list).sort(function(s, t) {
+    if (s < t) return -1;
+    if (s > t) return 1;
+    return 0;
   });
-  numArr.data.length > 0 && segs.push(numArr);
-  return segs;
+  if (character.includes('*')) {
+    character.splice(0, 1);
+    character.push('*');
+  }
+  return list;
 };
+
+let resolvedArr;
 class Category extends Component {
   state = {
     currIndex: '',
   };
 
   componentWillMount() {
-    this.props.originArr.map((item) => {
-      const tmp = item.letter;
-      arr.push({ name: tmp, data: item });
-    });
-    resolvedArr = someSort(arr);
+    originArr = this.props.originArr;
+    resolvedArr = someSort(originArr);
   }
 
   componentDidMount() {
@@ -132,21 +114,17 @@ class Category extends Component {
   render() {
     return (
       <Card bordered={false} id="card">
-        {resolvedArr.map((ele, i) => (
+        {character.map((ele, i) => (
           <div key={i}>
             <span
               key={i}
-              id={ele.title}
-              className={
-                (ele.title === '*' ? '#' : ele.title) === this.state.currIndex
-                  ? 'active'
-                  : 'anchor-wrapper'
-              }
+              id={ele}
+              className={ele === this.state.currIndex ? 'active' : 'anchor-wrapper'}
             >
-              {ele.title === '*' ? '#' : ele.title}
+              {ele}
             </span>
             <div className="wrapper">
-              {ele.data.map((elem, index) => (
+              {resolvedArr[ele].map((elem, index) => (
                 <div className="item" key={index}>
                   <div className="avatar">
                     <Avatar size={45} icon="user" />
@@ -194,7 +172,6 @@ class Category extends Component {
               {character.map((ele, i) => (
                 <Link href={`#${ele}`} title={ele} className="anchor_link" key={i} />
               ))}
-              <Link href="#*" title="#" className="anchor_link" />
             </Anchor>
           }
         </div>

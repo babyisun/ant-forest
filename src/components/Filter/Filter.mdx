@@ -1,0 +1,36 @@
+---
+name: Filter 筛选器
+route: /Filter
+# menu: 组件
+---
+
+import { Playground, PropsTable } from 'docz'
+import Filter from './Filter.jsx'
+
+
+# Filter
+
+Filter组件帮助你更好地配合图表等进行条件筛选，有多选和单选两种模式，同时组建内展示的数据格式支持数组和对象。
+
+## 代码演示
+
+简单示例
+<Playground>
+    <Filter list={['01','02']} defaultList={'-1'} />
+</Playground>
+
+数据格式为数组的多选模式
+<Playground>
+    <Filter list={['01','02']} defaultList={['01', '02']} multiple/>
+</Playground>
+
+数据格式为对象的多选模式
+
+<Playground>
+    <Filter list={{1:'01',2:'02',3:'03'}} defaultList={['01', '02','03']} multiple/>
+</Playground>
+
+
+## API
+
+<PropsTable of={Filter} />
