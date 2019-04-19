@@ -9,5 +9,6 @@ module.exports = {
     ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
     ['@babel/plugin-transform-runtime', { useESModules: NODE_ENV === 'es' }],
     '@babel/plugin-proposal-class-properties',
+    '@babel/plugin-proposal-export-default-from',
   ],
 };

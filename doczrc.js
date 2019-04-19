@@ -10,7 +10,7 @@ export default {
     base: '/ant-forest',
     // public: './public',
     title: 'Ant Forest',
-    description: 'A component library growing on ant-design.',
+    description: 'A component library which is growing on ant-design.',
     codeSandbox: false,
     hashRouter: true,
     //   theme:'theme',
@@ -19,7 +19,7 @@ export default {
         // css(),
         css({
             preprocessor: 'postcss',
-            cssmodules: true,
+            // cssmodules: true,
         }),
         css({
             preprocessor: 'less',
@@ -29,7 +29,7 @@ export default {
         }),
         css({
             preprocessor: 'sass',
-            cssmodules: true,
+            // cssmodules: true,
         }),
     ],
     modifyBabelRc: (babelrc) => {

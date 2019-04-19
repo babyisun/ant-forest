@@ -1,13 +1,16 @@
 {
   "name": "ant-forest",
-  "version": "1.0.0",
-  "description": "🌈 A component library growing on ant-design.",
+  "version": "1.0.1",
+  "description": "🌈 A component library which is growing on ant-design.",
   "keywords": [
+    "ant-forest",
     "react",
     "ant",
     "antd",
-    "ant-design",
-    "ant-forest"
+    "react-component",
+    "component",
+    "components",
+    "ant-design"
   ],
   "license": "MIT",
   "author": {
@@ -29,17 +32,24 @@
     "src"
   ],
   "scripts": {
-    "build:js": "cross-env NODE_ENV=js rollup -c -o --silent lib/index.js",
-    "build:es": "cross-env NODE_ENV=es rollup -c -o --silent es/index.js",
-    "build": "yarn build:js && yarn build:js",
+    "build:js": "cross-env NODE_ENV=build FORMAT=js rollup -c -o lib/index.js",
+    "build:es": "cross-env NODE_ENV=build FORMAT=es rollup -c -o es/index.js",
+    "build": "yarn build:js && yarn build:es",
     "dev": "cross-env NODE_ENV=dev yarn docz dev",
     "doc": "cross-env NODE_ENV=build yarn docz build",
     "clean": "rimraf lib es",
     "see": "http-server docs -p 8010 -o"
   },
+  "peerDependencies": {
+    "antd": ">=3.12.0",
+    "prop-types": ">=15.0.0",
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
   "dependencies": {
     "@babel/core": "^7.3.4",
     "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
@@ -65,6 +75,7 @@
     "rollup": "^1.6.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-sass": "^1.1.0",
     "uuid": "^3.3.2"
   },

@@ -1,15 +1,15 @@
 @import '../../common.scss';
 
-.filter {
+.#{$af-prefix-cls}-filter {
   :global {
     .ant-radio-button-wrapper {
       padding: 0 8px;
-      height: $Filter-ButtonHeight;
-      line-height: $Filter-ButtonHeight;
+      height: $af-filter-button-height;
+      line-height: $af-filter-button-height;
     }
 
     .ant-radio-button-wrapper-checked {
-      background-color: $Primary;
+      background-color: $af-primary;
       color: white;
       box-shadow: none;
     }
@@ -20,7 +20,7 @@
 
     .ant-checkbox-wrapper {
       padding: 0 8px;
-      height: $Filter-ButtonHeight;
+      height: $af-filter-button-height;
       font-size: 13px;
       border-radius: 2px;
       transition: color 0.3s, background 0.3s, border-color 0.3s;
@@ -30,14 +30,14 @@
       }
 
       span {
-        line-height: $Filter-ButtonHeight;
+        line-height: $af-filter-button-height;
         display: block;
         text-align: center;
       }
     }
 
     .ant-checkbox-wrapper-checked {
-      background-color: $Primary;
+      background-color: $af-primary;
       color: white;
     }
   }

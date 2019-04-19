@@ -6,6 +6,8 @@ import style from './Filter.scss';
 const { Group: RG, Button: RB } = Radio;
 const { Group: CG } = Checkbox;
 
+console.log(style);
+
 class Filter extends Component {
   constructor(props) {
     super(props);
@@ -95,7 +97,7 @@ class Filter extends Component {
     const { multiple, options, disabledAll, defaultValue, value } = this.props;
     // console.log(this.props, 979)
     return (
-      <div className={style.filter}>
+      <div className={`${style.prefixCls}-filter`}>
         {multiple ? (
           <>
             {!disabledAll && (

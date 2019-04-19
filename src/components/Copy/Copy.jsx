@@ -1,5 +1,5 @@
-import React, { Component, Fragment, Children } from 'react';
-import { Button, Icon, Input } from 'antd';
+import React, { Component } from 'react';
+import { Icon, Input } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QueueAnim from 'rc-queue-anim';
 import t from 'prop-types';

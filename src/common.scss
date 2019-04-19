@@ -1,10 +1,13 @@
-$Primary: #1badff; // 主色调
-$Secondary: #e2f6ff; // 辅色调
-$Error: #f74052; // 错误提示
-$Success: #52c41a; // 成功、通过等
-$Title: #333; // 标题或较深label
-$Text: #666; // 文字或正文
-$Disabled: #ccc; // 禁用
+$af-prefix-cls: af !default;
+:export {
+  prefixCls: $af-prefix-cls;
+}
+$af-primary: #1badff !default; // 主色调
+$af-secondary: #e2f6ff !default; // 辅色调
+$af-error: #f74052 !default; // 错误提示
+$af-success: #52c41a !default; // 成功、通过等
+$af-title: #333 !default; // 标题或较深label
+$af-text: #666 !default; // 文字或正文
+$af-disabled: #ccc !default; // 禁用
 
-$Filter-ButtonHeight: 28px;
-// $Filter-ButtonWeight: 28px;
+$af-filter-button-height: 28px;
