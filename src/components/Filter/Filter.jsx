@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Radio, Checkbox } from 'antd';
 import t from 'prop-types';
 import style from './Filter.scss';
+import { getPrefixCls } from '../../utils/classname';
 
 const { Group: RG, Button: RB } = Radio;
 const { Group: CG } = Checkbox;
-
-console.log(style);
 
 class Filter extends Component {
   constructor(props) {
@@ -95,9 +94,9 @@ class Filter extends Component {
   render() {
     const { checkAll, checkedList, indeterminate } = this.state;
     const { multiple, options, disabledAll, defaultValue, value } = this.props;
-    // console.log(this.props, 979)
+    // console.log(this.props, 979) <div className={`${style.prefixCls}-filter`}>
     return (
-      <div className={`${style.prefixCls}-filter`}>
+      <div className={getPrefixCls('filter')}>
         {multiple ? (
           <>
             {!disabledAll && (

@@ -64,6 +64,6 @@ export default {
         'Filter 筛选器',
         'Copy 一键复制',
         // 'Category 分类卡片',
-        'TopProgress 进度条',
+        // 'TopProgress 进度条',
       ],
 };
