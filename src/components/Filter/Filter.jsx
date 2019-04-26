@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Radio, Checkbox } from 'antd';
 import t from 'prop-types';
-import style from './Filter.scss';
+// import style from './Filter.scss';
+import style from './Filter.less';
 import { getPrefixCls } from '../../utils/classname';
 
 const { Group: RG, Button: RB } = Radio;
@@ -97,6 +98,7 @@ class Filter extends Component {
     // console.log(this.props, 979) <div className={`${style.prefixCls}-filter`}>
     return (
       <div className={getPrefixCls('filter')}>
+        {/* <div className={`${style.prefixCls}-filter`}> */}
         {multiple ? (
           <>
             {!disabledAll && (

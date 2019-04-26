@@ -1,0 +1,51 @@
+@import '../../style.less';
+
+.@{af-prefix-cls}-filter {
+  .ant-radio-button-wrapper {
+    padding: 0 8px;
+    height: @af-filter-button-height;
+    line-height: @af-filter-button-height;
+    border: none;
+    &:first-child {
+        border-left: none;
+    }
+    &:not(:first-child)::before{
+        width: 0;
+    }
+    &.ant-radio-button-wrapper-checked{
+        background-color: @primary-color;
+        color: white;
+        box-shadow: none;
+        &:hover {
+            color: @white;
+        }
+    }
+  }
+
+  .ant-checkbox-group {
+    margin-left: 8px;
+  }
+
+  .ant-checkbox-wrapper {
+    padding: 0 8px;
+    height: @af-filter-button-height;
+    font-size: 13px;
+    border-radius: 2px;
+    transition: color 0.3s, background 0.3s, border-color 0.3s;
+
+    .ant-checkbox {
+      display: none;
+    }
+
+    span {
+      line-height: @af-filter-button-height;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  .ant-checkbox-wrapper-checked {
+    background-color: @primary-color;
+    color: white;
+  }
+}
